@@ -73,7 +73,7 @@ namespace AcademiaDoZe.Domain
         {
             if (this.TipoColaborador == ETipoColaborador.Instrutor)
                 throw new InvalidOperationException("Somente atendentes e administradores podem cadastrar alunos.");
-            
+
             try
             {
                 var matricula = new Matricula(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudo);

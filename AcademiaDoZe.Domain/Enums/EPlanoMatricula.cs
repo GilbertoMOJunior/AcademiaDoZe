@@ -6,10 +6,10 @@ namespace AcademiaDoZe.Domain.Enums
     {
         [Display(Name = "Mensal")]
         Mensal = 1,
-        
+
         [Display(Name = "Trimestral")]
         Trimestral = 2,
-        
+
         [Display(Name = "Semestral")]
         Semestral = 3,
 

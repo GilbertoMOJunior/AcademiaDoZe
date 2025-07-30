@@ -10,13 +10,13 @@ namespace AcademiaDoZe.Domain.Enums
 
         [Display(Name = "Cardíaca")]
         Cardiaca = 1,
-        
+
         [Display(Name = "Respiratória")]
         Respiratoria = 2,
-        
+
         [Display(Name = "Lesão Articular")]
         LesaoArticular = 4,
-        
+
         [Display(Name = "Outros")]
         Outros = 8
     }
