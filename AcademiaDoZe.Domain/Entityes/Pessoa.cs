@@ -1,11 +1,26 @@
 ﻿namespace AcademiaDoZe.Domain
 {
-    public abstract class Pessoa
+    public abstract class Pessoa : Entity
     {
         public Pessoa(string cpf, string nome, DateOnly dataNascimento, string? email,
             string telefone, string senha, string? foto, Logradouro logradouro,
             string numero, string? complemento)
         {
+            if (string.IsNullOrWhiteSpace(cpf))
+                throw new ArgumentException("CPF não pode ser vazio.", nameof(cpf));
+            if (string.IsNullOrWhiteSpace(nome))
+                throw new ArgumentException("Nome não pode ser vazio.", nameof(nome));
+            if (dataNascimento == default)
+                throw new ArgumentException("Data de nascimento não pode ser nula.", nameof(dataNascimento));
+            if (string.IsNullOrWhiteSpace(telefone))
+                throw new ArgumentException("Telefone não pode ser vazio.", nameof(telefone));
+            if (string.IsNullOrWhiteSpace(senha))
+                throw new ArgumentException("Senha não pode ser vazia.", nameof(senha));
+            if (logradouro is null)
+                throw new ArgumentNullException(nameof(logradouro), "Logradouro não pode ser nulo.");
+            if (string.IsNullOrWhiteSpace(numero))
+                throw new ArgumentException("Número não pode ser vazio.", nameof(numero));
+
             Cpf = cpf;
             Nome = nome;
             DataNascimento = dataNascimento;
@@ -42,12 +57,12 @@
 
         public virtual void Entrar()
         {
-            var registro = new Entrada(this, DateTime.Now);
+            var registro = new Catraca(this, DateTime.Now);
         }
 
         public virtual void Sair()
         {
-            var registro = new Entrada(this, DateTime.Now);
+            var registro = new Catraca(this, DateTime.Now);
         }
     }
 }

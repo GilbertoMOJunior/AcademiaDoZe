@@ -1,26 +1,34 @@
-﻿namespace AcademiaDoZe.Domain
+﻿using AcademiaDoZe.Domain.Enums;
+
+namespace AcademiaDoZe.Domain
 {
     public sealed class Colaborador : Pessoa
     {
-        public Colaborador(DateOnly dataAdmissao, TipoColaborador tipoColaborador, Vinculo vinculo,
+        public Colaborador(DateOnly dataAdmissao, ETipoColaborador tipoColaborador, EVinculoColaborador vinculo,
             string cpf, string nome, DateOnly dataNascimento, string? email,
             string telefone, string senha, string foto, Logradouro logradouro,
             string numero, string complemento) : base(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento)
         {
+            if (dataAdmissao == default)
+                throw new ArgumentException("Data de admissão não pode ser nula.", nameof(dataAdmissao));
+
+            if (dataAdmissao > DateOnly.FromDateTime(DateTime.Now))
+                throw new ArgumentException("Data de admissão não pode ser no futuro.", nameof(dataAdmissao));
+
             DataAdmissao = dataAdmissao;
             TipoColaborador = tipoColaborador;
             Vinculo = vinculo;
         }
 
         public DateOnly DataAdmissao { get; set; }
-        public TipoColaborador TipoColaborador { get; set; }
-        public Vinculo Vinculo { get; set; }
+        public ETipoColaborador TipoColaborador { get; set; }
+        public EVinculoColaborador Vinculo { get; set; }
 
-        public Entrada RegistrarEntradaAluno(Aluno aluno)
+        public Catraca RegistrarEntradaAluno(Aluno aluno)
         {
             try
             {
-                var registro = new Entrada(aluno, DateTime.Now);
+                var registro = new Catraca(aluno, DateTime.Now);
                 return registro;
             }
             catch (InvalidOperationException ex)
@@ -29,11 +37,11 @@
             }
         }
 
-        public Saida RegistrarSaidaAluno(Aluno aluno)
+        public Catraca RegistrarSaidaAluno(Aluno aluno)
         {
             try
             {
-                var registro = new Saida(aluno, DateTime.Now);
+                var registro = new Catraca(aluno, DateTime.Now);
                 return registro;
             }
             catch (InvalidOperationException ex)
@@ -46,7 +54,7 @@
         public Aluno CadastrarAluno(string cpf, string nome, DateOnly dataNascimento, string? email, string telefone,
             string senha, string? foto, Logradouro logradouro, string numero, string? complemento)
         {
-            if (this.TipoColaborador == TipoColaborador.Instrutor)
+            if (this.TipoColaborador == ETipoColaborador.Instrutor)
                 throw new InvalidOperationException("Somente atendentes e administradores podem cadastrar alunos.");
             try
             {
@@ -61,14 +69,14 @@
             }
         }
 
-        public Matricula MatricularAluno(Aluno aluno, PlanoMatricula plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, List<Restricao>? restricoes)
+        public Matricula MatricularAluno(Aluno aluno, EPlanoMatricula plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, ERestricaoMatricula? restricoes, Arquivo? laudo)
         {
-            if (this.TipoColaborador == TipoColaborador.Instrutor)
+            if (this.TipoColaborador == ETipoColaborador.Instrutor)
                 throw new InvalidOperationException("Somente atendentes e administradores podem cadastrar alunos.");
             
             try
             {
-                var matricula = new Matricula(aluno, plano, dataInicio, dataFim, objetivo, restricoes);
+                var matricula = new Matricula(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudo);
                 return matricula;
             }
             catch (ArgumentException ex)
@@ -76,18 +84,5 @@
                 throw new InvalidOperationException("Erro ao matricular aluno: " + ex.Message);
             }
         }
-    }
-
-    public enum TipoColaborador
-    {
-        Administrador = 1,
-        Atendente = 2,
-        Instrutor = 3
-    }
-
-    public enum Vinculo
-    {
-        Clt = 1,
-        Estagio = 2
     }
 }

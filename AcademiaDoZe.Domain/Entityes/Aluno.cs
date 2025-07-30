@@ -17,8 +17,6 @@
         public string GetTempoContrato()
         {
             throw new NotImplementedException("Método GetTempoContrato não implementado.");
-            //contrato = Select Contrato where AlunoId = this.Id
-            //return $"Data vencimento:{contrato.DataVencimento};
         }
 
         public void TrocarSenha(string senhaAtual, string novaSenha)
