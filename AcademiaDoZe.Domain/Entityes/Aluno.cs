@@ -1,12 +1,20 @@
-﻿namespace AcademiaDoZe.Domain
+﻿using AcademiaDoZe.Domain.Exeption;
+
+namespace AcademiaDoZe.Domain
 {
     public sealed class Aluno : Pessoa
     {
-        public Aluno(string cpf, string nome, DateOnly dataNascimento, string? email, string telefone,
-            string senha, string? foto, Logradouro logradouro, string numero, string? complemento)
+        private Aluno(string cpf, string nome, DateOnly dataNascimento, string? email, string telefone,
+            string senha, Arquivo? foto, Logradouro logradouro, string numero, string? complemento)
             : base(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento)
         {
 
+        }
+
+        public static Aluno Criar(string cpf, string nome, DateOnly dataNascimento, string? email, string telefone,
+            string senha, Arquivo? foto, Logradouro logradouro, string numero, string? complemento)
+        {
+            return new Aluno(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento);
         }
 
         public string GetTempoPermanencia(DateTime Inicio, DateTime FIm)
@@ -22,11 +30,11 @@
         public void TrocarSenha(string senhaAtual, string novaSenha)
         {
             if (string.IsNullOrWhiteSpace(senhaAtual))
-                throw new ArgumentException("Senha atual não pode ser vazia.", nameof(senhaAtual));
+                throw new DomainException("Senha atual não pode ser vazia.");
             if (string.IsNullOrWhiteSpace(novaSenha))
-                throw new ArgumentException("Nova senha não pode ser vazia.", nameof(novaSenha));
+                throw new DomainException("Nova senha não pode ser vazia.");
             if (senhaAtual != Senha)
-                throw new InvalidOperationException("Senha atual está incorreta.");
+                throw new DomainException("Senha atual está incorreta.");
             Senha = novaSenha;
         }
     }

@@ -1,23 +1,35 @@
 ﻿using AcademiaDoZe.Domain.Enums;
+using AcademiaDoZe.Domain.Exeption;
 
 namespace AcademiaDoZe.Domain
 {
     public sealed class Colaborador : Pessoa
     {
-        public Colaborador(DateOnly dataAdmissao, ETipoColaborador tipoColaborador, EVinculoColaborador vinculo,
+        private Colaborador(DateOnly dataAdmissao, ETipoColaborador tipoColaborador, EVinculoColaborador vinculo,
             string cpf, string nome, DateOnly dataNascimento, string? email,
-            string telefone, string senha, string foto, Logradouro logradouro,
+            string telefone, string senha, Arquivo? foto, Logradouro logradouro,
             string numero, string complemento) : base(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento)
         {
-            if (dataAdmissao == default)
-                throw new ArgumentException("Data de admissão não pode ser nula.", nameof(dataAdmissao));
-
-            if (dataAdmissao > DateOnly.FromDateTime(DateTime.Now))
-                throw new ArgumentException("Data de admissão não pode ser no futuro.", nameof(dataAdmissao));
 
             DataAdmissao = dataAdmissao;
             TipoColaborador = tipoColaborador;
             Vinculo = vinculo;
+        }
+
+        public static Colaborador Criar(DateOnly dataAdmissao, ETipoColaborador tipoColaborador, EVinculoColaborador vinculo,
+            string cpf, string nome, DateOnly dataNascimento, string? email,
+            string telefone, string senha, Arquivo? foto, Logradouro logradouro,
+            string numero, string complemento)
+        {
+
+            if (dataAdmissao == default)
+                throw new DomainException("Data de admissão não pode ser nula.");
+
+            if (dataAdmissao > DateOnly.FromDateTime(DateTime.Now))
+                throw new DomainException("Data de admissão não pode ser no futuro.");
+
+            return new Colaborador(dataAdmissao, tipoColaborador, vinculo, cpf, nome, dataNascimento, email,
+                telefone, senha, foto, logradouro, numero, complemento);
         }
 
         public DateOnly DataAdmissao { get; set; }
@@ -28,7 +40,7 @@ namespace AcademiaDoZe.Domain
         {
             try
             {
-                var registro = new Catraca(aluno, DateTime.Now);
+                var registro = Catraca.Criar(aluno, DateTime.Now);
                 return registro;
             }
             catch (InvalidOperationException ex)
@@ -41,7 +53,7 @@ namespace AcademiaDoZe.Domain
         {
             try
             {
-                var registro = new Catraca(aluno, DateTime.Now);
+                var registro = Catraca.Criar(aluno, DateTime.Now);
                 return registro;
             }
             catch (InvalidOperationException ex)
@@ -52,14 +64,14 @@ namespace AcademiaDoZe.Domain
         }
 
         public Aluno CadastrarAluno(string cpf, string nome, DateOnly dataNascimento, string? email, string telefone,
-            string senha, string? foto, Logradouro logradouro, string numero, string? complemento)
+            string senha, Arquivo? foto, Logradouro logradouro, string numero, string? complemento)
         {
             if (this.TipoColaborador == ETipoColaborador.Instrutor)
                 throw new InvalidOperationException("Somente atendentes e administradores podem cadastrar alunos.");
             try
             {
-                var novoAluno = new Aluno(cpf, nome, dataNascimento, email, telefone,
-                    senha, foto ?? "", logradouro, numero, complemento ?? "");
+                var novoAluno = Aluno.Criar(cpf, nome, dataNascimento, email, telefone,
+                    senha, foto, logradouro, numero, complemento ?? "");
 
                 return novoAluno;
             }
@@ -76,7 +88,7 @@ namespace AcademiaDoZe.Domain
 
             try
             {
-                var matricula = new Matricula(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudo);
+                var matricula = Matricula.Criar(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudo);
                 return matricula;
             }
             catch (ArgumentException ex)

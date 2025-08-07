@@ -1,25 +1,27 @@
-﻿namespace AcademiaDoZe.Domain
+﻿using AcademiaDoZe.Domain.Exeption;
+
+namespace AcademiaDoZe.Domain
 {
     public abstract class Pessoa : Entity
     {
         public Pessoa(string cpf, string nome, DateOnly dataNascimento, string? email,
-            string telefone, string senha, string? foto, Logradouro logradouro,
+            string telefone, string senha, Arquivo? foto, Logradouro logradouro,
             string numero, string? complemento)
         {
             if (string.IsNullOrWhiteSpace(cpf))
-                throw new ArgumentException("CPF não pode ser vazio.", nameof(cpf));
+                throw new DomainException("CPF não pode ser vazio.");
             if (string.IsNullOrWhiteSpace(nome))
-                throw new ArgumentException("Nome não pode ser vazio.", nameof(nome));
+                throw new DomainException("Nome não pode ser vazio.");
             if (dataNascimento == default)
-                throw new ArgumentException("Data de nascimento não pode ser nula.", nameof(dataNascimento));
+                throw new DomainException("Data de nascimento não pode ser nula.");
             if (string.IsNullOrWhiteSpace(telefone))
-                throw new ArgumentException("Telefone não pode ser vazio.", nameof(telefone));
+                throw new DomainException("Telefone não pode ser vazio.");
             if (string.IsNullOrWhiteSpace(senha))
-                throw new ArgumentException("Senha não pode ser vazia.", nameof(senha));
+                throw new DomainException("Senha não pode ser vazia.");
             if (logradouro is null)
-                throw new ArgumentNullException(nameof(logradouro), "Logradouro não pode ser nulo.");
+                throw new DomainException("Logradouro não pode ser nulo.");
             if (string.IsNullOrWhiteSpace(numero))
-                throw new ArgumentException("Número não pode ser vazio.", nameof(numero));
+                throw new DomainException("Número não pode ser vazio.");
 
             Cpf = cpf;
             Nome = nome;
@@ -39,7 +41,7 @@
         public string? Email { get; set; }
         public string Telefone { get; set; }
         protected string Senha { get; set; }
-        public string? Foto { get; set; }
+        public Arquivo? Foto { get; set; }
         public Logradouro Logradouro { get; set; }
         public string Numero { get; set; }
         public string? Complemento { get; set; }
@@ -57,12 +59,12 @@
 
         public virtual void Entrar()
         {
-            var registro = new Catraca(this, DateTime.Now);
+            var registro = Catraca.Criar(this, DateTime.Now);
         }
 
         public virtual void Sair()
         {
-            var registro = new Catraca(this, DateTime.Now);
+            var registro = Catraca.Criar(this, DateTime.Now);
         }
     }
 }
