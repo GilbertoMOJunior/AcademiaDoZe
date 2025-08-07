@@ -1,4 +1,5 @@
-﻿using AcademiaDoZe.Domain.Exeption;
+﻿using AcademiaDoZe.Domain.Enums;
+using AcademiaDoZe.Domain.Exeption;
 
 namespace AcademiaDoZe.Domain
 {
@@ -15,6 +16,32 @@ namespace AcademiaDoZe.Domain
             string senha, Arquivo? foto, Logradouro logradouro, string numero, string? complemento)
         {
             return new Aluno(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento);
+        }
+
+        public override Catraca Entrar()
+        {
+            try
+            {
+                var registro = Catraca.Criar(this, DateTime.Now, ETipoPessoa.Aluno);
+                return registro;
+            }
+            catch (DomainException ex)
+            {
+                throw new DomainException("Erro ao registrar entrada: " + ex.Message);
+            }
+        }
+
+        public override Catraca Sair()
+        {
+            try
+            {
+                var registro = Catraca.Criar(this, DateTime.Now, ETipoPessoa.Aluno);
+                return registro;
+            }
+            catch (DomainException ex)
+            {
+                throw new DomainException("Erro ao registrar entrada: " + ex.Message);
+            }
         }
 
         public string GetTempoPermanencia(DateTime Inicio, DateTime FIm)

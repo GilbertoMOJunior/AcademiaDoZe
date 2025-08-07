@@ -1,4 +1,4 @@
-﻿using AcademiaDoZe.Domain;
+﻿//Gilberto Mota de Oliveira Junior
 using AcademiaDoZe.Domain.Exeption;
 
 namespace AcademiaDoZe.Domain.Tests

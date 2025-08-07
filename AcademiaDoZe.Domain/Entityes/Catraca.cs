@@ -1,16 +1,18 @@
-﻿using AcademiaDoZe.Domain.Exeption;
+﻿using AcademiaDoZe.Domain.Enums;
+using AcademiaDoZe.Domain.Exeption;
 
 namespace AcademiaDoZe.Domain
 {
-    public class Catraca : Entity
+    public partial class Catraca : Entity
     {
-        private Catraca(Pessoa pessoa, DateTime dataHora)
+        private Catraca(Pessoa pessoa, DateTime dataHora, ETipoPessoa tipo)
         {
             Pessoa = pessoa;
             DataHora = dataHora;
+            TipoPessoa = tipo;
         }
 
-        public static Catraca Criar(Pessoa pessoa, DateTime dataHora)
+        public static Catraca Criar(Pessoa pessoa, DateTime dataHora, ETipoPessoa tipoPessoa)
         {
             if (pessoa is null)
                 throw new DomainException("Pessoa não pode ser nula.");
@@ -18,10 +20,11 @@ namespace AcademiaDoZe.Domain
             if (dataHora == default)
                 throw new DomainException("Data e hora não podem ser nulas.");
 
-            return new Catraca(pessoa, dataHora);
+            return new Catraca(pessoa, dataHora, tipoPessoa);
         }
 
         public Pessoa Pessoa { get; set; }
         public DateTime DataHora { get; set; }
+        public ETipoPessoa TipoPessoa { get; set; }
     }
 }

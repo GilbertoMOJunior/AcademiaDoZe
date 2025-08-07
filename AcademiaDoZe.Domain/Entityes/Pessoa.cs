@@ -57,14 +57,14 @@ namespace AcademiaDoZe.Domain
             return idade;
         }
 
-        public virtual void Entrar()
+        public virtual Catraca Entrar()
         {
-            var registro = Catraca.Criar(this, DateTime.Now);
+            return Catraca.Criar(this, DateTime.Now, 0);
         }
 
-        public virtual void Sair()
+        public virtual Catraca Sair()
         {
-            var registro = Catraca.Criar(this, DateTime.Now);
+            return Catraca.Criar(this, DateTime.Now, 0);
         }
     }
 }

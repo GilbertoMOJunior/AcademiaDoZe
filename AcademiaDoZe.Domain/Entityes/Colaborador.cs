@@ -36,16 +36,42 @@ namespace AcademiaDoZe.Domain
         public ETipoColaborador TipoColaborador { get; set; }
         public EVinculoColaborador Vinculo { get; set; }
 
+        public Catraca Entrar(Aluno aluno)
+        {
+            try
+            {
+                var registro = Catraca.Criar(this, DateTime.Now, ETipoPessoa.Colaborador);
+                return registro;
+            }
+            catch (DomainException ex)
+            {
+                throw new DomainException("Erro ao registrar entrada: " + ex.Message);
+            }
+        }
+
+        public Catraca Sair(Aluno aluno)
+        {
+            try
+            {
+                var registro = Catraca.Criar(this, DateTime.Now, ETipoPessoa.Colaborador);
+                return registro;
+            }
+            catch (DomainException ex)
+            {
+                throw new DomainException("Erro ao registrar entrada: " + ex.Message);
+            }
+        }
+
         public Catraca RegistrarEntradaAluno(Aluno aluno)
         {
             try
             {
-                var registro = Catraca.Criar(aluno, DateTime.Now);
+                var registro = Catraca.Criar(aluno, DateTime.Now, ETipoPessoa.Aluno);
                 return registro;
             }
-            catch (InvalidOperationException ex)
+            catch (DomainException ex)
             {
-                throw new InvalidOperationException("Erro ao registrar entrada do aluno: " + ex.Message);
+                throw new DomainException("Erro ao registrar entrada do aluno: " + ex.Message);
             }
         }
 
@@ -53,21 +79,20 @@ namespace AcademiaDoZe.Domain
         {
             try
             {
-                var registro = Catraca.Criar(aluno, DateTime.Now);
+                var registro = Catraca.Criar(aluno, DateTime.Now, ETipoPessoa.Aluno);
                 return registro;
             }
-            catch (InvalidOperationException ex)
+            catch (DomainException ex)
             {
-                throw new InvalidOperationException("Erro ao registrar entrada do aluno: " + ex.Message);
+                throw new DomainException("Erro ao registrar entrada do aluno: " + ex.Message);
             }
-
         }
 
         public Aluno CadastrarAluno(string cpf, string nome, DateOnly dataNascimento, string? email, string telefone,
             string senha, Arquivo? foto, Logradouro logradouro, string numero, string? complemento)
         {
             if (this.TipoColaborador == ETipoColaborador.Instrutor)
-                throw new InvalidOperationException("Somente atendentes e administradores podem cadastrar alunos.");
+                throw new DomainException("Somente atendentes e administradores podem cadastrar alunos.");
             try
             {
                 var novoAluno = Aluno.Criar(cpf, nome, dataNascimento, email, telefone,
@@ -75,25 +100,25 @@ namespace AcademiaDoZe.Domain
 
                 return novoAluno;
             }
-            catch (ArgumentException ex)
+            catch (DomainException ex)
             {
-                throw new InvalidOperationException("Erro ao cadastrar aluno: " + ex.Message);
+                throw new DomainException("Erro ao cadastrar aluno: " + ex.Message);
             }
         }
 
         public Matricula MatricularAluno(Aluno aluno, EPlanoMatricula plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, ERestricaoMatricula? restricoes, Arquivo? laudo)
         {
             if (this.TipoColaborador == ETipoColaborador.Instrutor)
-                throw new InvalidOperationException("Somente atendentes e administradores podem cadastrar alunos.");
+                throw new DomainException("Somente atendentes e administradores podem cadastrar alunos.");
 
             try
             {
                 var matricula = Matricula.Criar(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudo);
                 return matricula;
             }
-            catch (ArgumentException ex)
+            catch (DomainException ex)
             {
-                throw new InvalidOperationException("Erro ao matricular aluno: " + ex.Message);
+                throw new DomainException("Erro ao matricular aluno: " + ex.Message);
             }
         }
     }
