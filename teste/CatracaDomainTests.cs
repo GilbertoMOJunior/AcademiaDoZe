@@ -14,7 +14,7 @@ namespace AcademiaDoZe.Domain.Tests
                                     "joao@email.com", "48999999999", "senha123", null,
                                     logradouro, "100", null);
 
-            var catraca = Catraca.Criar(aluno, DateTime.Now);
+            var catraca = Catraca.Criar(aluno, DateTime.Now,Enums.ETipoPessoa.Aluno);
 
             Assert.NotNull(catraca);
         }
@@ -23,7 +23,7 @@ namespace AcademiaDoZe.Domain.Tests
         public void CriarCatraca_PessoaNula_DeveLancarExcecao()
         {
             Assert.Throws<DomainException>(() =>
-                Catraca.Criar(null!, DateTime.Now)
+                Catraca.Criar(null!, DateTime.Now, Enums.ETipoPessoa.Aluno)
             );
         }
 
@@ -36,7 +36,7 @@ namespace AcademiaDoZe.Domain.Tests
                                     logradouro, "100", null);
 
             Assert.Throws<DomainException>(() =>
-                Catraca.Criar(aluno, default)
+                Catraca.Criar(aluno, default, Enums.ETipoPessoa.Aluno)
             );
         }
     }

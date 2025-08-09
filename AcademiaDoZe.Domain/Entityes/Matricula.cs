@@ -14,6 +14,7 @@ namespace AcademiaDoZe.Domain
             DataVencimento = dataFim;
             Objetivo = objetivo;
             Restricoes = restricoes;
+            Laudo = laudo;
         }
 
         public static Matricula Criar(Aluno aluno, EPlanoMatricula plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, ERestricaoMatricula? restricoes, Arquivo? laudo)
@@ -49,7 +50,7 @@ namespace AcademiaDoZe.Domain
         public string Objetivo { get; set; }
         public ERestricaoMatricula? Restricoes { get; set; }
 
-        public Arquivo Laudo { get; set; }
+        public Arquivo? Laudo { get; set; }
 
         public bool Ativo => DataVencimento >= DateOnly.FromDateTime(DateTime.Today);
     }

@@ -8,7 +8,7 @@ namespace AcademiaDoZe.Domain
     {
         private Logradouro(string nomeLogradouro, string cEP, string pais, string estado, string cidade, string bairro)
         {
-            NomeLogradouro = nomeLogradouro;
+            Nome = nomeLogradouro;
             CEP = cEP;
             Pais = pais;
             Cidade = cidade;
@@ -16,20 +16,20 @@ namespace AcademiaDoZe.Domain
             Estado = estado;
         }
 
-        public static Logradouro Criar(string nomeLogradouro, string cEP, string pais, string estado, string cidade, string bairro)
+        public static Logradouro Criar(string nome, string cep, string pais, string estado, string cidade, string bairro)
         {
-            cEP = TextoNormalizadoService.LimparEDigitos(cEP);
-            nomeLogradouro = TextoNormalizadoService.LimparEspacos(nomeLogradouro);
+            cep = TextoNormalizadoService.LimparEDigitos(cep);
+            nome = TextoNormalizadoService.LimparEspacos(nome);
             pais = TextoNormalizadoService.LimparEspacos(pais);
             estado = TextoNormalizadoService.LimparTodosEspacos(estado);
             cidade = TextoNormalizadoService.LimparEspacos(cidade);
             bairro = TextoNormalizadoService.LimparEspacos(bairro);
 
-            if (string.IsNullOrWhiteSpace(nomeLogradouro))
+            if (string.IsNullOrWhiteSpace(nome))
                 throw new DomainException("Nome do logradouro não pode ser vazio.");
-            if (string.IsNullOrWhiteSpace(cEP))
+            if (string.IsNullOrWhiteSpace(cep))
                 throw new DomainException("CEP não pode ser vazio.");
-            if(cEP.Length != 8)
+            if(cep.Length != 8)
                 throw new DomainException("CEP deve conter 8 dígitos.");
             if (string.IsNullOrWhiteSpace(pais))
                 throw new DomainException("País não pode ser vazio.");
@@ -40,10 +40,10 @@ namespace AcademiaDoZe.Domain
             if (string.IsNullOrWhiteSpace(bairro))
                 throw new DomainException("Bairro não pode ser vazio.");
 
-            return new Logradouro(nomeLogradouro, cEP, pais, estado, cidade, bairro);
+            return new Logradouro(nome, cep, pais, estado, cidade, bairro);
         }
 
-        public string NomeLogradouro { get; set; }
+        public string Nome { get; set; }
         public string CEP { get; set; }
         public string Bairro { get; set; }
         public string Cidade { get; set; }
