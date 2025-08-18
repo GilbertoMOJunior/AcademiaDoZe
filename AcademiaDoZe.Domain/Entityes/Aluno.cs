@@ -18,11 +18,11 @@ namespace AcademiaDoZe.Domain
             return new Aluno(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento);
         }
 
-        public override Catraca Entrar()
+        public override Acesso Entrar()
         {
             try
             {
-                var registro = Catraca.Criar(this, DateTime.Now, ETipoPessoa.Aluno);
+                var registro = Acesso.Criar(this, DateTime.Now, ETipoPessoa.Aluno);
                 return registro;
             }
             catch (DomainException ex)
@@ -31,11 +31,11 @@ namespace AcademiaDoZe.Domain
             }
         }
 
-        public override Catraca Sair()
+        public override Acesso Sair()
         {
             try
             {
-                var registro = Catraca.Criar(this, DateTime.Now, ETipoPessoa.Aluno);
+                var registro = Acesso.Criar(this, DateTime.Now, ETipoPessoa.Aluno);
                 return registro;
             }
             catch (DomainException ex)

@@ -2,7 +2,7 @@
 
 namespace AcademiaDoZe.Domain.IRepositorios
 {
-    internal interface IRepositorioColaborador : IRepositorio<Colaborador>
+    public interface IRepositorioColaborador : IRepositorio<Colaborador>
     {
     }
 }

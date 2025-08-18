@@ -40,7 +40,7 @@ namespace AcademiaDoZe.Domain
         public DateOnly DataNascimento { get; set; }
         public string? Email { get; set; }
         public string Telefone { get; set; }
-        protected string Senha { get; set; }
+        public string Senha { get; set; }
         public Arquivo? Foto { get; set; }
         public Logradouro Logradouro { get; set; }
         public string Numero { get; set; }
@@ -57,14 +57,14 @@ namespace AcademiaDoZe.Domain
             return idade;
         }
 
-        public virtual Catraca Entrar()
+        public virtual Acesso Entrar()
         {
-            return Catraca.Criar(this, DateTime.Now, 0);
+            return Acesso.Criar(this, DateTime.Now, 0);
         }
 
-        public virtual Catraca Sair()
+        public virtual Acesso Sair()
         {
-            return Catraca.Criar(this, DateTime.Now, 0);
+            return Acesso.Criar(this, DateTime.Now, 0);
         }
     }
 }

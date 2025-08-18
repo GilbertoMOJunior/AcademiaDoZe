@@ -11,7 +11,7 @@ namespace AcademiaDoZe.Domain.Tests
         {
             var logradouro = Logradouro.Criar("Rua A", "12345678", "Brasil", "SP", "SP", "Centro");
 
-            var fotoFake = new Arquivo(new byte[] { 1, 2, 3, 4 });
+            var fotoFake = Arquivo.Criar(new byte[] { 1, 2, 3, 4 }, "jpg");
 
             var colaborador = Colaborador.Criar(new DateOnly(2020, 1, 1), ETipoColaborador.Instrutor, EVinculoColaborador.CLT,
                                                 "12345678901", "Maria", new DateOnly(1990, 5, 20),
@@ -26,7 +26,7 @@ namespace AcademiaDoZe.Domain.Tests
         {
             var logradouro = Logradouro.Criar("Rua A", "12345678", "Brasil", "SP", "SP", "Centro");
             
-            var fotoFake = new Arquivo(new byte[] { 1, 2, 3, 4 });
+            var fotoFake = Arquivo.Criar(new byte[] { 1, 2, 3, 4 }, "jpg");
 
             Assert.Throws<DomainException>(() =>
                 Colaborador.Criar(DateOnly.FromDateTime(DateTime.Now.AddDays(1)), ETipoColaborador.Instrutor, EVinculoColaborador.CLT,

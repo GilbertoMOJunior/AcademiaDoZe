@@ -1,18 +1,19 @@
-﻿using System.Data.Common;
-using System.Data;
+﻿using System.Data;
+using System.Data.Common;
 using AcademiaDoZe.Domain;
-using AcademiaDoZe.Infraestrutura.Exeption;
 using AcademiaDoZe.Domain.Repositorios;
+using AcademiaDoZe.Infraestrutura.Data;
+using AcademiaDoZe.Infraestrutura.Exeption;
 
-namespace AcademiaDoZe.Infraestrutura.Data
+namespace AcademiaDoZe.Infraestrutura
 {
-    public abstract class BaseRepository<TEntity> : IRepositorio<TEntity>, IAsyncDisposable where TEntity : Entity
+    public abstract class RepositorioBase<TEntity> : IRepositorio<TEntity>, IAsyncDisposable where TEntity : Entity
     {
         protected readonly string _connectionString;
         protected readonly DatabaseType _databaseType;
         private DbConnection _connection;
         private bool _disposed = false;
-        protected BaseRepository(string connectionString, DatabaseType databaseType)
+        protected RepositorioBase(string connectionString, DatabaseType databaseType)
         {
             _connectionString = connectionString ?? throw new InfraestruturaException("ERRO_STRING_CONEXAO" + nameof(connectionString));
             _databaseType = databaseType;
@@ -55,10 +56,11 @@ namespace AcademiaDoZe.Infraestrutura.Data
             }
         }
         // Finalizador, destrutor, para garantir que os recursos sejam liberados - é chamado pelo Garbage Collector (GC) do .NET quando o objeto está sendo coletado.
-        ~BaseRepository()
+        ~RepositorioBase()
         {
             DisposeAsync(false).AsTask().GetAwaiter().GetResult();
         }
+
         #region métodos de uso geral, não dependem de dados específicos de cada entidade
         public virtual async Task<TEntity?> ObterPorId(int id)
         {
@@ -110,7 +112,7 @@ namespace AcademiaDoZe.Infraestrutura.Data
             catch (DbException ex) { throw new InvalidOperationException($"ERRO_REMOVER_ID_{id}", ex); }
         }
         #endregion
-        
+
         #region métodos de uso específico, que devem ser implementados nas classes derivadas
         public abstract Task<TEntity> Adicionar(TEntity entity);
         public abstract Task<TEntity> Atualizar(TEntity entity);

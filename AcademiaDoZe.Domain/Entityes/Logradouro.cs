@@ -1,5 +1,4 @@
-﻿using System.Runtime.ConstrainedExecution;
-using AcademiaDoZe.Domain.Exeption;
+﻿using AcademiaDoZe.Domain.Exeption;
 using AcademiaDoZe.Domain.Service;
 
 namespace AcademiaDoZe.Domain
@@ -9,7 +8,7 @@ namespace AcademiaDoZe.Domain
         private Logradouro(string nomeLogradouro, string cEP, string pais, string estado, string cidade, string bairro)
         {
             Nome = nomeLogradouro;
-            CEP = cEP;
+            Cep = cEP;
             Pais = pais;
             Cidade = cidade;
             Bairro = bairro;
@@ -44,7 +43,7 @@ namespace AcademiaDoZe.Domain
         }
 
         public string Nome { get; set; }
-        public string CEP { get; set; }
+        public string Cep { get; set; }
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
