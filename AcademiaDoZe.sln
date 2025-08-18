@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Domain.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Infraestrutura", "AcademiaDoZe.Infraestrutura\AcademiaDoZe.Infraestrutura.csproj", "{E0E1F25E-1481-46BF-A95E-0533AE252277}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{F9CAB3CF-C344-4E48-ABCB-2E8FD2BB8BD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{378F1CD4-3C60-4261-8504-A621D1A8CD6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +36,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{85B2C761-9890-4827-AE27-BA50F9EE3627} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{64D03A71-6641-4C67-9E56-E9F31823CDA8} = {378F1CD4-3C60-4261-8504-A621D1A8CD6E}
+		{E0E1F25E-1481-46BF-A95E-0533AE252277} = {F9CAB3CF-C344-4E48-ABCB-2E8FD2BB8BD0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21D33429-FC77-4805-93DA-42D73BEED2C3}

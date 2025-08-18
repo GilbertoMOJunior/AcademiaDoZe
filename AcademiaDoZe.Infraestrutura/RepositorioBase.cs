@@ -7,13 +7,13 @@ using AcademiaDoZe.Infraestrutura.Exeption;
 
 namespace AcademiaDoZe.Infraestrutura
 {
-    public abstract class BaseRepository<TEntity> : IRepositorio<TEntity>, IAsyncDisposable where TEntity : Entity
+    public abstract class RepositorioBase<TEntity> : IRepositorio<TEntity>, IAsyncDisposable where TEntity : Entity
     {
         protected readonly string _connectionString;
         protected readonly DatabaseType _databaseType;
         private DbConnection _connection;
         private bool _disposed = false;
-        protected BaseRepository(string connectionString, DatabaseType databaseType)
+        protected RepositorioBase(string connectionString, DatabaseType databaseType)
         {
             _connectionString = connectionString ?? throw new InfraestruturaException("ERRO_STRING_CONEXAO" + nameof(connectionString));
             _databaseType = databaseType;
@@ -56,10 +56,11 @@ namespace AcademiaDoZe.Infraestrutura
             }
         }
         // Finalizador, destrutor, para garantir que os recursos sejam liberados - é chamado pelo Garbage Collector (GC) do .NET quando o objeto está sendo coletado.
-        ~BaseRepository()
+        ~RepositorioBase()
         {
             DisposeAsync(false).AsTask().GetAwaiter().GetResult();
         }
+
         #region métodos de uso geral, não dependem de dados específicos de cada entidade
         public virtual async Task<TEntity?> ObterPorId(int id)
         {

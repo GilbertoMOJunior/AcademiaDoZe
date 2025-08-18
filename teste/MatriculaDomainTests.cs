@@ -17,7 +17,7 @@ namespace AcademiaDoZe.Domain.Tests
             var matricula = Matricula.Criar(aluno, EPlanoMatricula.Mensal,
                                            DateOnly.FromDateTime(DateTime.Now),
                                            DateOnly.FromDateTime(DateTime.Now.AddMonths(1)),
-                                           "Musculação", ERestricaoMatricula.Nenhuma, null);
+                                           "Musculação", ERestricaoMatricula.Nenhuma, "", null);
 
             Assert.NotNull(matricula);
         }
@@ -34,7 +34,7 @@ namespace AcademiaDoZe.Domain.Tests
                 Matricula.Criar(aluno, EPlanoMatricula.Mensal,
                                 DateOnly.FromDateTime(DateTime.Now),
                                 DateOnly.FromDateTime(DateTime.Now.AddMonths(1)),
-                                "Musculação", ERestricaoMatricula.Nenhuma, null)
+                                "Musculação", ERestricaoMatricula.Nenhuma, "", null)
             );
         }
 
@@ -50,7 +50,7 @@ namespace AcademiaDoZe.Domain.Tests
                 Matricula.Criar(aluno, EPlanoMatricula.Mensal,
                                 DateOnly.FromDateTime(DateTime.Now.AddMonths(1)),
                                 DateOnly.FromDateTime(DateTime.Now),
-                                "Musculação", ERestricaoMatricula.Nenhuma, null)
+                                "Musculação", ERestricaoMatricula.Nenhuma, "", null)
             );
         }
     }

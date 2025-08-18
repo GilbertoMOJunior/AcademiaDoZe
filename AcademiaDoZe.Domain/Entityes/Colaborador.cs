@@ -36,11 +36,11 @@ namespace AcademiaDoZe.Domain
         public ETipoColaborador TipoColaborador { get; set; }
         public EVinculoColaborador Vinculo { get; set; }
 
-        public Catraca Entrar(Aluno aluno)
+        public Acesso Entrar(Aluno aluno)
         {
             try
             {
-                var registro = Catraca.Criar(this, DateTime.Now, ETipoPessoa.Colaborador);
+                var registro = Acesso.Criar(this, DateTime.Now, ETipoPessoa.Colaborador);
                 return registro;
             }
             catch (DomainException ex)
@@ -49,11 +49,11 @@ namespace AcademiaDoZe.Domain
             }
         }
 
-        public Catraca Sair(Aluno aluno)
+        public Acesso Sair(Aluno aluno)
         {
             try
             {
-                var registro = Catraca.Criar(this, DateTime.Now, ETipoPessoa.Colaborador);
+                var registro = Acesso.Criar(this, DateTime.Now, ETipoPessoa.Colaborador);
                 return registro;
             }
             catch (DomainException ex)
@@ -62,11 +62,11 @@ namespace AcademiaDoZe.Domain
             }
         }
 
-        public Catraca RegistrarEntradaAluno(Aluno aluno)
+        public Acesso RegistrarEntradaAluno(Aluno aluno)
         {
             try
             {
-                var registro = Catraca.Criar(aluno, DateTime.Now, ETipoPessoa.Aluno);
+                var registro = Acesso.Criar(aluno, DateTime.Now, ETipoPessoa.Aluno);
                 return registro;
             }
             catch (DomainException ex)
@@ -75,11 +75,11 @@ namespace AcademiaDoZe.Domain
             }
         }
 
-        public Catraca RegistrarSaidaAluno(Aluno aluno)
+        public Acesso RegistrarSaidaAluno(Aluno aluno)
         {
             try
             {
-                var registro = Catraca.Criar(aluno, DateTime.Now, ETipoPessoa.Aluno);
+                var registro = Acesso.Criar(aluno, DateTime.Now, ETipoPessoa.Aluno);
                 return registro;
             }
             catch (DomainException ex)
@@ -106,14 +106,14 @@ namespace AcademiaDoZe.Domain
             }
         }
 
-        public Matricula MatricularAluno(Aluno aluno, EPlanoMatricula plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, ERestricaoMatricula? restricoes, Arquivo? laudo)
+        public Matricula MatricularAluno(Aluno aluno, EPlanoMatricula plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, ERestricaoMatricula? restricoes, string observacoesRestricoes, Arquivo? laudo)
         {
             if (this.TipoColaborador == ETipoColaborador.Instrutor)
                 throw new DomainException("Somente atendentes e administradores podem cadastrar alunos.");
 
             try
             {
-                var matricula = Matricula.Criar(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudo);
+                var matricula = Matricula.Criar(aluno, plano, dataInicio, dataFim, objetivo, restricoes, observacoesRestricoes ,laudo);
                 return matricula;
             }
             catch (DomainException ex)

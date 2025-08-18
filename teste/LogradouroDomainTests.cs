@@ -22,7 +22,7 @@ namespace AcademiaDoZe.Domain.Tests
         public void CriarLogradouro_Valido_VerificarNormalizado()
         {
             var logradouro = Logradouro.Criar("Casa  ", "1234./567-8", "  Brasil  ", "S P", " SP ", "  Centro");
-            Assert.Equal("12345678", logradouro.CEP); // validando normalização
+            Assert.Equal("12345678", logradouro.Cep); // validando normalização
             Assert.Equal("Casa", logradouro.Nome);
             Assert.Equal("Centro", logradouro.Bairro);
             Assert.Equal("SP", logradouro.Cidade);
