@@ -1,8 +1,8 @@
-﻿using System.Data.Common;
-using System.Data;
+﻿using System.Data;
+using System.Data.Common;
+using AcademiaDoZe.Infraestrutura.Exeption;
 using Microsoft.Data.SqlClient;
 using MySql.Data.MySqlClient;
-using AcademiaDoZe.Infraestrutura.Exeption;
 
 namespace AcademiaDoZe.Infraestrutura.Data
 {

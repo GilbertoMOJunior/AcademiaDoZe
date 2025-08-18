@@ -2,7 +2,7 @@
 
 namespace AcademiaDoZe.Domain.IRepositorios
 {
-    public interface IRepositoriocatraca : IRepositorio<Catraca>
+    public interface IRepositorioAcesso : IRepositorio<Catraca>
     {
         
     }
