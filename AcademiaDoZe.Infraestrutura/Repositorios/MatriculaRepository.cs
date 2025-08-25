@@ -8,9 +8,9 @@ using System.Data.Common;
 
 namespace AcademiaDoZe.Infraestrutura.Repositorios
 {
-    public class RepositorioMatricula : RepositorioBase<Matricula>, IRepositorioMatricula
+    public class MatriculaRepository : RepositorioBase<Matricula>, IRepositorioMatricula
     {
-        public RepositorioMatricula(string connectionString, DatabaseType databaseType) : base(connectionString, databaseType)
+        public MatriculaRepository(string connectionString, DatabaseType databaseType) : base(connectionString, databaseType)
         {
         }
 
@@ -90,7 +90,7 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
             {
                 // Obtém o aluno de forma assíncrona
                 var alunoId = Convert.ToInt32(reader["aluno_id"]);
-                var alunoRepository = new RepositorioAluno(_connectionString, _databaseType);
+                var alunoRepository = new AlunoRepository(_connectionString, _databaseType);
                 var aluno = await alunoRepository.ObterPorId(alunoId) ?? throw new InvalidOperationException($"Aluno com ID {alunoId} não encontrado.");
                 // Cria o objeto Matricula usando o método de fábrica
                 var matricula = Matricula.Criar(

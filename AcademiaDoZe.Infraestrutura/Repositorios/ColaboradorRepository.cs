@@ -7,9 +7,9 @@ using System.Data.Common;
 
 namespace AcademiaDoZe.Infraestrutura.Repositorios
 {
-    public class RepositorioColaborador : RepositorioBase<Colaborador>, IRepositorioColaborador
+    public class ColaboradorRepository : RepositorioBase<Colaborador>, IRepositorioColaborador
     {
-        public RepositorioColaborador(string connectionString, DatabaseType databaseType) : base(connectionString, databaseType) { }
+        public ColaboradorRepository(string connectionString, DatabaseType databaseType) : base(connectionString, databaseType) { }
         public override async Task<Colaborador> Adicionar(Colaborador entity)
         {
             try
@@ -154,7 +154,7 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
             {
                 // Obtém o logradouro de forma assíncrona
                 var logradouroId = Convert.ToInt32(reader["logradouro_id"]);
-                var logradouroRepository = new RepositorioLogradouro(_connectionString, _databaseType);
+                var logradouroRepository = new LogradouroRepository(_connectionString, _databaseType);
                 var logradouro = await logradouroRepository.ObterPorId(logradouroId) ?? throw new InvalidOperationException($"Logradouro com ID {logradouroId} não encontrado.");
                 // Cria o objeto Colaborador usando o método de fábrica
                 var colaborador = Colaborador.Criar(

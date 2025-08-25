@@ -6,9 +6,9 @@ using System.Data.Common;
 
 namespace AcademiaDoZe.Infraestrutura.Repositorios
 {
-    public class RepositorioLogradouro : RepositorioBase<Logradouro>, IRepositorioLogradouro
+    public class LogradouroRepository : RepositorioBase<Logradouro>, IRepositorioLogradouro
     {
-        public RepositorioLogradouro(string connectionString, DatabaseType databaseType) : base(connectionString, databaseType) { }
+        public LogradouroRepository(string connectionString, DatabaseType databaseType) : base(connectionString, databaseType) { }
         public override async Task<Logradouro> Adicionar(Logradouro entity)
         {
             try

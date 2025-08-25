@@ -81,7 +81,7 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 if (tipoPessoa == ETipoPessoa.Aluno)
                 {
 
-                    var AlunoRepository = new RepositorioAluno(_connectionString, _databaseType);
+                    var AlunoRepository = new AlunoRepository(_connectionString, _databaseType);
                     var pessoa = await AlunoRepository.ObterPorId(pessoaId) ?? throw new InvalidOperationException($"Pessoa com ID {pessoaId} não encontrado.");
                     // Cria o objeto Colaborador usando o método de fábrica
                     var entity = Acesso.Criar(
@@ -97,7 +97,7 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 }
                 else if (tipoPessoa == ETipoPessoa.Colaborador)
                 {
-                    var ColaboradorRepository = new RepositorioColaborador(_connectionString, _databaseType);
+                    var ColaboradorRepository = new ColaboradorRepository(_connectionString, _databaseType);
                     var pessoa = await ColaboradorRepository.ObterPorId(pessoaId) ?? throw new InvalidOperationException($"Pessoa com ID {pessoaId} não encontrado.");
                     // Cria o objeto Colaborador usando o método de fábrica
                     var entity = Acesso.Criar(
