@@ -56,15 +56,5 @@ namespace AcademiaDoZe.Domain
 
             return idade;
         }
-
-        public virtual Acesso Entrar()
-        {
-            return Acesso.Criar(this, DateTime.Now, 0);
-        }
-
-        public virtual Acesso Sair()
-        {
-            return Acesso.Criar(this, DateTime.Now, 0);
-        }
     }
 }

@@ -100,7 +100,7 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                     dataFim: DateOnly.FromDateTime(Convert.ToDateTime(reader["data_fim"])),
                     objetivo: reader["objetivo"].ToString(),
                     restricoes: (ERestricaoMatricula)Convert.ToInt32(reader["restricoes_medicas"]),
-                    laudo: reader["laudo_medico"] is DBNull ? null : Arquivo.Criar((byte[])reader["laudo_medico"], "jpg"),
+                    laudo: reader["laudo_medico"] is DBNull ? null : Arquivo.Criar((byte[])reader["laudo_medico"], ".jpg"),
                     observacoes: reader["observacoes_restricoes"]?.ToString() ?? string.Empty
                 );
                 // Define o ID usando reflection

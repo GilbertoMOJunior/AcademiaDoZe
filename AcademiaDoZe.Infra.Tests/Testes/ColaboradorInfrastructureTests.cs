@@ -64,16 +64,16 @@ namespace AcademiaDoZe.Infra.Tests.Testes
             colaboradorExistente.TipoColaborador,
             colaboradorExistente.Vinculo,
 
-            "zé dos testes 123",
             colaboradorExistente.Cpf,
+            "zé dos testes 123",
             colaboradorExistente.DataNascimento,
-            colaboradorExistente.Telefone,
             colaboradorExistente.Email,
-            colaboradorExistente.Numero,
+            colaboradorExistente.Telefone,
+            colaboradorExistente.Senha,
             arquivo,
             colaboradorExistente.Logradouro,
-            colaboradorExistente.Complemento,
-            colaboradorExistente.Senha
+            colaboradorExistente.Numero,
+            colaboradorExistente.Complemento
             );
             // Usar reflexão para definir o ID
 

@@ -6,20 +6,18 @@ namespace AcademiaDoZe.Infra.Tests.Testes
 {
     public class LogradouroInfrastructureTests : TestBase
     {
-
         [Fact]
         public async Task Logradouro_Adicionar()
         {
             var _cep = "12345678";
             // Adicionar
 
-            var logradouro = Logradouro.Criar(_cep, "Rua dos Testes", "Bairro Teste", "Cidade Teste", "TS", "Pais teste");
+            var logradouro = Logradouro.Criar("Rua dos Testes", _cep, "Pais teste", "TS", "Cidade Teste", "Bairro Teste");
 
             var repoLogradouroAdd = new LogradouroRepository(ConnectionString, DatabaseType);
             var logradouroInserido = await repoLogradouroAdd.Adicionar(logradouro);
             Assert.NotNull(logradouroInserido);
             Assert.True(logradouroInserido.Id > 0);
-
         }
         [Fact]
         public async Task Logradouro_ObterPorCep_Atualizar()
@@ -33,10 +31,9 @@ namespace AcademiaDoZe.Infra.Tests.Testes
             Assert.NotNull(logradouroPorCep);
 
             // Atualizar
-            var logradouroAtualizado = Logradouro.Criar(_cep, "Rua Atualizada", "Bairro Atualizado", "Cidade Atualizada", "AT", "Pais atualizado");
+            var logradouroAtualizado = Logradouro.Criar("Rua Atualizada", _cep, "Pais atualizado", "AT", "Cidade Atualizada", "Bairro Atualizado");
 
             // reflexão para definir o ID
-
             var idProperty = typeof(Entity).GetProperty("Id");
 
             idProperty?.SetValue(logradouroAtualizado, logradouroPorCep.Id);
@@ -46,7 +43,6 @@ namespace AcademiaDoZe.Infra.Tests.Testes
 
             Assert.Equal("AT", resultadoAtualizacao.Estado);
             Assert.Equal("Rua Atualizada", resultadoAtualizacao.Nome);
-
         }
         [Fact]
         public async Task Logradouro_ObterPorCep_Remover_ObterPorId()
@@ -79,7 +75,6 @@ namespace AcademiaDoZe.Infra.Tests.Testes
             var resultados = await repoLogradouroPorCidade.ObterPorCidade(cidadeExistente);
             Assert.NotNull(resultados);
             Assert.NotEmpty(resultados);
-
         }
         [Fact]
         public async Task Logradouro_ObterTodos()

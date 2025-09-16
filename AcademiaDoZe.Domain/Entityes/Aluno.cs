@@ -1,5 +1,4 @@
-﻿using AcademiaDoZe.Domain.Enums;
-using AcademiaDoZe.Domain.Exeption;
+﻿using AcademiaDoZe.Domain.Exeption;
 
 namespace AcademiaDoZe.Domain
 {
@@ -16,32 +15,6 @@ namespace AcademiaDoZe.Domain
             string senha, Arquivo? foto, Logradouro logradouro, string numero, string? complemento)
         {
             return new Aluno(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento);
-        }
-
-        public override Acesso Entrar()
-        {
-            try
-            {
-                var registro = Acesso.Criar(this, DateTime.Now, ETipoPessoa.Aluno);
-                return registro;
-            }
-            catch (DomainException ex)
-            {
-                throw new DomainException("Erro ao registrar entrada: " + ex.Message);
-            }
-        }
-
-        public override Acesso Sair()
-        {
-            try
-            {
-                var registro = Acesso.Criar(this, DateTime.Now, ETipoPessoa.Aluno);
-                return registro;
-            }
-            catch (DomainException ex)
-            {
-                throw new DomainException("Erro ao registrar entrada: " + ex.Message);
-            }
         }
 
         public string GetTempoPermanencia(DateTime Inicio, DateTime FIm)

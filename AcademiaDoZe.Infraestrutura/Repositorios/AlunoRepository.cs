@@ -109,7 +109,7 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 numero: reader["numero"].ToString()!,
                 complemento: reader["complemento"]?.ToString(),
                 senha: reader["senha"].ToString()!,
-                foto: reader["foto"] is DBNull ? null : Arquivo.Criar((byte[])reader["foto"], "jpg")
+                foto: reader["foto"] is DBNull ? null : Arquivo.Criar((byte[])reader["foto"], ".jpg")
                 );
                 // Define o ID usando reflection
                 var idProperty = typeof(Entity).GetProperty("Id");

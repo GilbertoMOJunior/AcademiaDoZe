@@ -167,7 +167,7 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 numero: reader["numero"].ToString()!,
                 complemento: reader["complemento"]?.ToString(),
                 senha: reader["senha"].ToString()!,
-                foto: reader["foto"] is DBNull ? null : Arquivo.Criar((byte[])reader["foto"], "jpg"),
+                foto: reader["foto"] is DBNull ? null : Arquivo.Criar((byte[])reader["foto"], ".jpg"),
                 dataAdmissao: DateOnly.FromDateTime(Convert.ToDateTime(reader["admissao"])),
                 tipoColaborador: (ETipoColaborador)Convert.ToInt32(reader["tipo"]),
                 vinculo: (EVinculoColaborador)Convert.ToInt32(reader["vinculo"])

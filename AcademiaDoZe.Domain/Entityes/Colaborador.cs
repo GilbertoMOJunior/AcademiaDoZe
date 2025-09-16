@@ -36,58 +36,7 @@ namespace AcademiaDoZe.Domain
         public ETipoColaborador TipoColaborador { get; set; }
         public EVinculoColaborador Vinculo { get; set; }
 
-        public Acesso Entrar(Aluno aluno)
-        {
-            try
-            {
-                var registro = Acesso.Criar(this, DateTime.Now, ETipoPessoa.Colaborador);
-                return registro;
-            }
-            catch (DomainException ex)
-            {
-                throw new DomainException("Erro ao registrar entrada: " + ex.Message);
-            }
-        }
-
-        public Acesso Sair(Aluno aluno)
-        {
-            try
-            {
-                var registro = Acesso.Criar(this, DateTime.Now, ETipoPessoa.Colaborador);
-                return registro;
-            }
-            catch (DomainException ex)
-            {
-                throw new DomainException("Erro ao registrar entrada: " + ex.Message);
-            }
-        }
-
-        public Acesso RegistrarEntradaAluno(Aluno aluno)
-        {
-            try
-            {
-                var registro = Acesso.Criar(aluno, DateTime.Now, ETipoPessoa.Aluno);
-                return registro;
-            }
-            catch (DomainException ex)
-            {
-                throw new DomainException("Erro ao registrar entrada do aluno: " + ex.Message);
-            }
-        }
-
-        public Acesso RegistrarSaidaAluno(Aluno aluno)
-        {
-            try
-            {
-                var registro = Acesso.Criar(aluno, DateTime.Now, ETipoPessoa.Aluno);
-                return registro;
-            }
-            catch (DomainException ex)
-            {
-                throw new DomainException("Erro ao registrar entrada do aluno: " + ex.Message);
-            }
-        }
-
+      
         public Aluno CadastrarAluno(string cpf, string nome, DateOnly dataNascimento, string? email, string telefone,
             string senha, Arquivo? foto, Logradouro logradouro, string numero, string? complemento)
         {
