@@ -7,7 +7,7 @@ using System.Data.Common;
 
 namespace AcademiaDoZe.Infraestrutura.Repositorios
 {
-    public class ColaboradorRepository : RepositorioBase<Colaborador>, IRepositorioColaborador
+    public class ColaboradorRepository : RepositorioBase<Colaborador>, IColaboradorRepository
     {
         public ColaboradorRepository(string connectionString, DatabaseType databaseType) : base(connectionString, databaseType) { }
         public override async Task<Colaborador> Adicionar(Colaborador entity)
@@ -28,13 +28,13 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 command.Parameters.Add(DbProvider.CreateParameter("@Nome", entity.Nome, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Nascimento", entity.DataNascimento, DbType.Date, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Email", entity.Email, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@LogradouroId", entity.Logradouro.Id, DbType.Int32, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@LogradouroId", entity.Endereco.Id, DbType.Int32, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Numero", entity.Numero, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Complemento", (object)entity.Complemento ?? DBNull.Value, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Senha", entity.Senha, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Foto", (object)entity.Foto.Conteudo ?? DBNull.Value, DbType.Binary, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Admissao", entity.DataAdmissao, DbType.Date, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Tipo", (int)entity.TipoColaborador, DbType.Int32, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Tipo", (int)entity.Tipo, DbType.Int32, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Vinculo", (int)entity.Vinculo, DbType.Int32, _databaseType));
                 var id = await command.ExecuteScalarAsync();
                 if (id != null && id != DBNull.Value)
@@ -87,13 +87,13 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 command.Parameters.Add(DbProvider.CreateParameter("@Nome", entity.Nome, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Nascimento", entity.DataNascimento, DbType.Date, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Email", entity.Email, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@LogradouroId", entity.Logradouro.Id, DbType.Int32, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@LogradouroId", entity.Endereco.Id, DbType.Int32, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Numero", entity.Numero, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Complemento", (object)entity.Complemento ?? DBNull.Value, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Senha", entity.Senha, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Foto", (object)entity.Foto.Conteudo ?? DBNull.Value, DbType.Binary, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Admissao", entity.DataAdmissao, DbType.Date, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Tipo", (int)entity.TipoColaborador, DbType.Int32, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Tipo", (int)entity.Tipo, DbType.Int32, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Vinculo", (int)entity.Vinculo, DbType.Int32, _databaseType));
                 int rowsAffected = await command.ExecuteNonQueryAsync();
                 if (rowsAffected == 0)
@@ -158,19 +158,20 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 var logradouro = await logradouroRepository.ObterPorId(logradouroId) ?? throw new InvalidOperationException($"Logradouro com ID {logradouroId} não encontrado.");
                 // Cria o objeto Colaborador usando o método de fábrica
                 var colaborador = Colaborador.Criar(
+                1,
                 cpf: reader["cpf"].ToString()!,
                 telefone: reader["telefone"].ToString()!,
                 nome: reader["nome"].ToString()!,
                 dataNascimento: DateOnly.FromDateTime(Convert.ToDateTime(reader["nascimento"])),
                 email: reader["email"].ToString()!,
-                logradouro: logradouro,
+                endereco: logradouro,
                 numero: reader["numero"].ToString()!,
                 complemento: reader["complemento"]?.ToString(),
                 senha: reader["senha"].ToString()!,
                 foto: reader["foto"] is DBNull ? null : Arquivo.Criar((byte[])reader["foto"], ".jpg"),
                 dataAdmissao: DateOnly.FromDateTime(Convert.ToDateTime(reader["admissao"])),
-                tipoColaborador: (ETipoColaborador)Convert.ToInt32(reader["tipo"]),
-                vinculo: (EVinculoColaborador)Convert.ToInt32(reader["vinculo"])
+                tipo: (EColaboradorTipo)Convert.ToInt32(reader["tipo"]),
+                vinculo: (EColaboradorVinculo)Convert.ToInt32(reader["vinculo"])
                 );
                 // Define o ID usando reflection
                 var idProperty = typeof(Entity).GetProperty("Id");

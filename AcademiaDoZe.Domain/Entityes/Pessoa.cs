@@ -11,7 +11,7 @@ namespace AcademiaDoZe.Domain
         public string Telefone { get; set; }
         public string Senha { get; set; }
         public Arquivo? Foto { get; set; }
-        public Logradouro Logradouro { get; set; }
+        public Logradouro Endereco { get; set; }
         public string Numero { get; set; }
         public string? Complemento { get; set; }
 
@@ -41,7 +41,7 @@ namespace AcademiaDoZe.Domain
             Telefone = telefone;
             Senha = senha;
             Foto = foto;
-            Logradouro = logradouro;
+            Endereco = logradouro;
             Numero = numero;
             Complemento = complemento;
         }

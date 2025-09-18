@@ -2,7 +2,7 @@
 
 namespace AcademiaDoZe.Domain.Enums
 {
-    public enum ETipoColaborador
+    public enum EColaboradorTipo
     {
         [Display(Name = "Administrador")]
         Administrador = 1,

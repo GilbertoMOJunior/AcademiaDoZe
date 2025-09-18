@@ -7,23 +7,23 @@ namespace AcademiaDoZe.Domain
     public sealed class Colaborador : Pessoa
     {
         public DateOnly DataAdmissao { get; set; }
-        public ETipoColaborador TipoColaborador { get; set; }
-        public EVinculoColaborador Vinculo { get; set; }
+        public EColaboradorTipo Tipo { get; set; }
+        public EColaboradorVinculo Vinculo { get; set; }
 
-        private Colaborador(DateOnly dataAdmissao, ETipoColaborador tipoColaborador, EVinculoColaborador vinculo,
+        private Colaborador(int id, DateOnly dataAdmissao, EColaboradorTipo tipoColaborador, EColaboradorVinculo vinculo,
             string cpf, string nome, DateOnly dataNascimento, string? email,
             string telefone, string senha, Arquivo? foto, Logradouro logradouro,
             string numero, string complemento) : base(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento)
         {
 
             DataAdmissao = dataAdmissao;
-            TipoColaborador = tipoColaborador;
+            Tipo = tipoColaborador;
             Vinculo = vinculo;
         }
 
-        public static Colaborador Criar(DateOnly dataAdmissao, ETipoColaborador tipoColaborador, EVinculoColaborador vinculo,
+        public static Colaborador Criar(int id, DateOnly dataAdmissao, EColaboradorTipo tipo, EColaboradorVinculo vinculo,
             string cpf, string nome, DateOnly dataNascimento, string? email,
-            string telefone, string senha, Arquivo? foto, Logradouro logradouro,
+            string telefone, string senha, Arquivo? foto, Logradouro endereco,
             string numero, string complemento)
         {
 
@@ -43,18 +43,18 @@ namespace AcademiaDoZe.Domain
             senha = NormalizadoService.LimparEspacos(senha);
             if (NormalizadoService.ValidarFormatoSenha(senha)) throw new DomainException("SENHA_FORMATO");
             if (foto == null) throw new DomainException("FOTO_OBRIGATORIO");
-            if (logradouro == null) throw new DomainException("LOGRADOURO_OBRIGATORIO");
+            if (endereco == null) throw new DomainException("LOGRADOURO_OBRIGATORIO");
             if (string.IsNullOrWhiteSpace(numero)) throw new DomainException("NUMERO_OBRIGATORIO");
             numero = NormalizadoService.LimparEspacos(numero);
             complemento = NormalizadoService.LimparEspacos(complemento);
             if (dataAdmissao == default) throw new DomainException("DATA_ADMISSAO_OBRIGATORIO");
             if (dataAdmissao > DateOnly.FromDateTime(DateTime.Today)) throw new DomainException("DATA_ADMISSAO_MAIOR_ATUAL");
-            if (!Enum.IsDefined(tipoColaborador)) throw new DomainException("TIPO_COLABORADOR_INVALIDO");
+            if (!Enum.IsDefined(tipo)) throw new DomainException("TIPO_COLABORADOR_INVALIDO");
             if (!Enum.IsDefined(vinculo)) throw new DomainException("VINCULO_COLABORADOR_INVALIDO");
-            if (tipoColaborador == ETipoColaborador.Administrador && vinculo != EVinculoColaborador.CLT) throw new DomainException("ADMINISTRADOR_CLT_INVALIDO");
+            if (tipo == EColaboradorTipo.Administrador && vinculo != EColaboradorVinculo.CLT) throw new DomainException("ADMINISTRADOR_CLT_INVALIDO");
 
-            return new Colaborador(dataAdmissao, tipoColaborador, vinculo, cpf, nome, dataNascimento, email,
-                telefone, senha, foto, logradouro, numero, complemento);
+            return new Colaborador(id, dataAdmissao, tipo, vinculo, cpf, nome, dataNascimento, email,
+                telefone, senha, foto, endereco, numero, complemento);
         }
     }
 }

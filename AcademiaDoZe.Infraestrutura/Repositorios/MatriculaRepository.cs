@@ -8,7 +8,7 @@ using System.Data.Common;
 
 namespace AcademiaDoZe.Infraestrutura.Repositorios
 {
-    public class MatriculaRepository : RepositorioBase<Matricula>, IRepositorioMatricula
+    public class MatriculaRepository : RepositorioBase<Matricula>, IMatriculaRepository
     {
         public MatriculaRepository(string connectionString, DatabaseType databaseType) : base(connectionString, databaseType)
         {
@@ -30,10 +30,10 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.Aluno.Id, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Plano", entity.Plano, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataVencimento, DbType.Date, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim, DbType.Date, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Objetivo", entity.Objetivo, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Restricoes_medicas", entity.Restricoes.Value, DbType.Int32, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", entity.Laudo, DbType.String, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", entity.LaudoMedico, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Observacoes_restricoes", (object)entity.ObservacoesRestricoes ?? DBNull.Value, DbType.String, _databaseType));
                 var id = await command.ExecuteScalarAsync();
                 if (id != null && id != DBNull.Value)
@@ -66,10 +66,10 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.Aluno.Id, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Plano", entity.Plano, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataVencimento, DbType.Date, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim, DbType.Date, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Objetivo", entity.Objetivo, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Restricoes_medicas", entity.Restricoes, DbType.Int32, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", entity.Laudo, DbType.String, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", entity.LaudoMedico, DbType.String, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Observacoes_restricoes", (object)entity.ObservacoesRestricoes ?? DBNull.Value, DbType.String, _databaseType));
                 int rowsAffected = await command.ExecuteNonQueryAsync();
                 if (rowsAffected == 0)
@@ -84,6 +84,21 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
             }
         }
 
+        public Task<IEnumerable<Matricula>> ObterAtivas(int alunoId = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Matricula>> ObterPorAluno(int alunoId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Matricula>> ObterVencendoEmDias(int dias)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override async Task<Matricula> MapAsync(DbDataReader reader)
         {
             try
@@ -95,11 +110,11 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 // Cria o objeto Matricula usando o método de fábrica
                 var matricula = Matricula.Criar(
                     aluno: aluno,
-                    plano: (EPlanoMatricula)Convert.ToInt32(reader["plano"]),
+                    plano: (EMatriculaPlano)Convert.ToInt32(reader["plano"]),
                     dataInicio: DateOnly.FromDateTime(Convert.ToDateTime(reader["data_inicio"])),
                     dataFim: DateOnly.FromDateTime(Convert.ToDateTime(reader["data_fim"])),
                     objetivo: reader["objetivo"].ToString(),
-                    restricoes: (ERestricaoMatricula)Convert.ToInt32(reader["restricoes_medicas"]),
+                    restricoes: (EMatriculaRestricoes)Convert.ToInt32(reader["restricoes_medicas"]),
                     laudo: reader["laudo_medico"] is DBNull ? null : Arquivo.Criar((byte[])reader["laudo_medico"], ".jpg"),
                     observacoes: reader["observacoes_restricoes"]?.ToString() ?? string.Empty
                 );

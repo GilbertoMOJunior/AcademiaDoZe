@@ -10,7 +10,7 @@ namespace AcademiaDoZe.Domain
             Conteudo = conteudo;
         }
 
-        public static Arquivo Criar(byte[] conteudo, string tipoArquivo)
+        public static Arquivo Criar(byte[] conteudo, string? tipoArquivo = ".jpg")
         {
             if (conteudo == null || conteudo.Length == 0)
                 throw new DomainException("ARQUIVO_VAZIO");

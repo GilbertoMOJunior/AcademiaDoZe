@@ -13,7 +13,7 @@ namespace AcademiaDoZe.Domain.Tests
 
             var fotoFake = Arquivo.Criar(new byte[] { 1, 2, 3, 4 }, ".jpg");
 
-            var colaborador = Colaborador.Criar(new DateOnly(2020, 1, 1), ETipoColaborador.Instrutor, EVinculoColaborador.CLT,
+            var colaborador = Colaborador.Criar(1,new DateOnly(2020, 1, 1), EColaboradorTipo.Instrutor, EColaboradorVinculo.CLT,
                                                 "12345678901", "Maria", new DateOnly(1990, 5, 20),
                                                 "maria@email.com", "48988888888", "Senha123",
                                                 fotoFake, logradouro, "50", "Sala 2");
@@ -29,7 +29,7 @@ namespace AcademiaDoZe.Domain.Tests
             var fotoFake = Arquivo.Criar(new byte[] { 1, 2, 3, 4 }, ".jpg");
 
             Assert.Throws<DomainException>(() =>
-                Colaborador.Criar(DateOnly.FromDateTime(DateTime.Now.AddDays(1)), ETipoColaborador.Instrutor, EVinculoColaborador.CLT,
+                Colaborador.Criar(1,DateOnly.FromDateTime(DateTime.Now.AddDays(1)), EColaboradorTipo.Instrutor, EColaboradorVinculo.CLT,
                                   "12345678901", "Maria", new DateOnly(1990, 5, 20),
                                   "maria@email.com", "48988888888", "senha123",
                                   fotoFake, logradouro, "50", "Sala 2")

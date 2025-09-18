@@ -13,7 +13,7 @@ namespace AcademiaDoZe.Domain
         }
 
         public static Aluno Criar(int id, string cpf, string nome, DateOnly dataNascimento, string? email, string telefone,
-            string senha, Arquivo? foto, Logradouro logradouro, string numero, string? complemento)
+            string senha, Arquivo? foto, Logradouro endereco, string numero, string? complemento)
         {
 
             nome = NormalizadoService.LimparEspacos(nome);
@@ -31,13 +31,13 @@ namespace AcademiaDoZe.Domain
             senha = NormalizadoService.LimparEspacos(senha);
             if (NormalizadoService.ValidarFormatoSenha(senha)) throw new DomainException("SENHA_FORMATO");
             if (foto == null) throw new DomainException("FOTO_OBRIGATORIO");
-            if (logradouro == null) throw new DomainException("LOGRADOURO_OBRIGATORIO");
+            if (endereco == null) throw new DomainException("LOGRADOURO_OBRIGATORIO");
 
             if (string.IsNullOrWhiteSpace(numero)) throw new DomainException("NUMERO_OBRIGATORIO");
             numero = NormalizadoService.LimparEspacos(numero);
             complemento = NormalizadoService.LimparEspacos(complemento);
 
-            return new Aluno(id, cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento);
+            return new Aluno(id, cpf, nome, dataNascimento, email, telefone, senha, foto, endereco, numero, complemento);
         }
     }
 }

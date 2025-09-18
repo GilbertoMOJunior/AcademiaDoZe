@@ -6,30 +6,30 @@ namespace AcademiaDoZe.Domain
     public sealed class Matricula : Entity
     {
         public Aluno Aluno { get; set; }
-        public EPlanoMatricula Plano { get; set; }
+        public EMatriculaPlano Plano { get; set; }
         public DateOnly DataInicio { get; set; }
-        public DateOnly DataVencimento { get; set; }
+        public DateOnly DataFim { get; set; }
         public string Objetivo { get; set; }
-        public ERestricaoMatricula? Restricoes { get; set; }
+        public EMatriculaRestricoes? Restricoes { get; set; }
         public string ObservacoesRestricoes { get; private set; }
 
-        public Arquivo? Laudo { get; set; }
+        public Arquivo? LaudoMedico { get; set; }
 
-        public bool Ativo => DataVencimento >= DateOnly.FromDateTime(DateTime.Today);
-        private Matricula(Aluno aluno, EPlanoMatricula plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, ERestricaoMatricula? restricoes, string observacoes, Arquivo? laudo)
+        public bool Ativo => DataFim >= DateOnly.FromDateTime(DateTime.Today);
+        private Matricula(Aluno aluno, EMatriculaPlano plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, EMatriculaRestricoes? restricoes, string observacoes, Arquivo? laudo)
         {
             
             Aluno = aluno;
             Plano = plano;
             DataInicio = dataInicio;
-            DataVencimento = dataFim;
+            DataFim = dataFim;
             Objetivo = objetivo;
             Restricoes = restricoes;
             ObservacoesRestricoes = observacoes;
-            Laudo = laudo;
+            LaudoMedico = laudo;
         }
 
-        public static Matricula Criar(Aluno aluno, EPlanoMatricula plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, ERestricaoMatricula? restricoes, string observacoes, Arquivo? laudo)
+        public static Matricula Criar(Aluno aluno, EMatriculaPlano plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, EMatriculaRestricoes? restricoes, string observacoes, Arquivo? laudo)
         {
             if (aluno is null)
                 throw new DomainException(nameof(aluno));
@@ -49,7 +49,7 @@ namespace AcademiaDoZe.Domain
             if (aluno.Idade() < 17 && laudo is null)
                 throw new DomainException("Aluno menor de 17 anos deve possuir laudo medico para ser cadastrado.");
 
-            if ((restricoes.HasValue && restricoes.Value != ERestricaoMatricula.Nenhuma) && laudo is null)
+            if ((restricoes.HasValue && restricoes.Value != EMatriculaRestricoes.Nenhuma) && laudo is null)
                 throw new DomainException("Aluno com restrições deve possuir um laudo médico.");
 
             return new Matricula(aluno, plano, dataInicio, dataFim, objetivo, restricoes, observacoes,laudo);

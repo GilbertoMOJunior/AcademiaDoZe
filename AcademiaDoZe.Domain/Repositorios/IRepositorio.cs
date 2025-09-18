@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AcademiaDoZe.Domain.Repositorios
+﻿namespace AcademiaDoZe.Domain.Repositorios
 {
     public interface IRepositorio<TEntity> where TEntity : Entity
     {

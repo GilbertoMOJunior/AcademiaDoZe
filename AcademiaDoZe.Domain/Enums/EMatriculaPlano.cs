@@ -2,7 +2,7 @@
 
 namespace AcademiaDoZe.Domain.Enums
 {
-    public enum EPlanoMatricula
+    public enum EMatriculaPlano
     {
         [Display(Name = "Mensal")]
         Mensal = 1,

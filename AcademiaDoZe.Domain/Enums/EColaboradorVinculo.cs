@@ -2,7 +2,7 @@
 
 namespace AcademiaDoZe.Domain.Enums
 {
-    public enum EVinculoColaborador
+    public enum EColaboradorVinculo
     {
         [Display(Name = "CLT")]
         CLT = 1,

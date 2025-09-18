@@ -15,10 +15,10 @@ namespace AcademiaDoZe.Domain.Tests
                                     "joao@email.com", "48999999999", "Senha123", foto,
                                     logradouro, "100", null);
 
-            var matricula = Matricula.Criar(aluno, EPlanoMatricula.Mensal,
+            var matricula = Matricula.Criar(aluno, EMatriculaPlano.Mensal,
                                            DateOnly.FromDateTime(DateTime.Now),
                                            DateOnly.FromDateTime(DateTime.Now.AddMonths(1)),
-                                           "Musculação", ERestricaoMatricula.Nenhuma, "", null);
+                                           "Musculação", EMatriculaRestricoes.Nenhuma, "", null);
 
             Assert.NotNull(matricula);
         }
@@ -48,10 +48,10 @@ namespace AcademiaDoZe.Domain.Tests
                                     logradouro, "100", null);
 
             Assert.Throws<DomainException>(() =>
-                Matricula.Criar(aluno, EPlanoMatricula.Mensal,
+                Matricula.Criar(aluno, EMatriculaPlano.Mensal,
                                 DateOnly.FromDateTime(DateTime.Now.AddMonths(1)),
                                 DateOnly.FromDateTime(DateTime.Now),
-                                "Musculação", ERestricaoMatricula.Nenhuma, "", null)
+                                "Musculação", EMatriculaRestricoes.Nenhuma, "", null)
             );
         }
     }

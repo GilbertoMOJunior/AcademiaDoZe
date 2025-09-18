@@ -3,7 +3,7 @@
 namespace AcademiaDoZe.Domain.Enums
 {
     [Flags]
-    public enum ERestricaoMatricula
+    public enum EMatriculaRestricoes
     {
         [Display(Name = "Nenhuma restrição")]
         Nenhuma = 0,
