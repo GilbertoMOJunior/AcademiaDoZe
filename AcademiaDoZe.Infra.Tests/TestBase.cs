@@ -16,8 +16,9 @@ namespace AcademiaDoZe.Infra.Tests
         }
         private (string ConnectionString, DatabaseType DatabaseType) CreateSqlServerConfig()
         {
-            var connectionString = "Server=localhost,1433;Database=db_academia_do_ze;User Id=sa;Password=abcBolinhas12345;TrustServerCertificate=True;Encrypt=True;";
-
+            var connectionString = "Server=localhost\\SQLEXPRESS;Database=AcademiaDoZe;User Id=sa;Password=V@$c0_1234;TrustServerCertificate=True;Encrypt=True;";
+            //var connectionString = "Server=localhost\\SQLEXPRESS;Database=AcademiaDoZe;Persist Security Info=True;Integrated Security=SSPI;Trusted_Connection=yes;";
+            //"Data Source=BR-OCIH-SPCDB01.dcndd.local;Initial Catalog=NDD_RETORNONFCom;connection timeout=550;Persist Security Info=True;Integrated Security=SSPI; Trusted_Connection=yes;MultipleActiveResultSets=true";
             return (connectionString, DatabaseType.SqlServer);
 
         }

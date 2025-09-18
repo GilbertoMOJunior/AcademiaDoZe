@@ -5,6 +5,17 @@ namespace AcademiaDoZe.Domain
 {
     public sealed class Matricula : Entity
     {
+        public Aluno Aluno { get; set; }
+        public EPlanoMatricula Plano { get; set; }
+        public DateOnly DataInicio { get; set; }
+        public DateOnly DataVencimento { get; set; }
+        public string Objetivo { get; set; }
+        public ERestricaoMatricula? Restricoes { get; set; }
+        public string ObservacoesRestricoes { get; private set; }
+
+        public Arquivo? Laudo { get; set; }
+
+        public bool Ativo => DataVencimento >= DateOnly.FromDateTime(DateTime.Today);
         private Matricula(Aluno aluno, EPlanoMatricula plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, ERestricaoMatricula? restricoes, string observacoes, Arquivo? laudo)
         {
             
@@ -43,18 +54,6 @@ namespace AcademiaDoZe.Domain
 
             return new Matricula(aluno, plano, dataInicio, dataFim, objetivo, restricoes, observacoes,laudo);
         }
-
-        public Aluno Aluno { get; set; }
-        public EPlanoMatricula Plano { get; set; }
-        public DateOnly DataInicio { get; set; }
-        public DateOnly DataVencimento { get; set; }
-        public string Objetivo { get; set; }
-        public ERestricaoMatricula? Restricoes { get; set; }
-        public string ObservacoesRestricoes { get; private set; }
-
-        public Arquivo? Laudo { get; set; }
-
-        public bool Ativo => DataVencimento >= DateOnly.FromDateTime(DateTime.Today);
     }
 }
 

@@ -2,7 +2,7 @@
 
 namespace AcademiaDoZe.Domain.Service
 {
-    public static partial class TextoNormalizadoService
+    public static partial class NormalizadoService
     {
         // Remove espaços repetidos e espaços no início e no final do texto
         public static string LimparEspacos(string? texto) => string.IsNullOrWhiteSpace(texto) ? string.Empty : EspacosRegex().Replace(texto, " ").Trim();
@@ -12,8 +12,19 @@ namespace AcademiaDoZe.Domain.Service
         public static string ParaMaiusculo(string? texto) => string.IsNullOrEmpty(texto) ? string.Empty : texto.ToUpperInvariant();
         // Manter somente digitos numericos
         public static string LimparEDigitos(string? texto) => string.IsNullOrEmpty(texto) ? string.Empty : new string([.. texto.Where(char.IsDigit)]);
-
+        // validar se email contém @ e ponto
+        public static bool ValidarFormatoEmail(string? email)
+        {
+            if (string.IsNullOrWhiteSpace(email)) return false;
+            return !email.Contains('@') || !email.Contains('.');
+        }
+        // validar formato da senha - mínimo 6 caracteres, pelo menos uma letra maiúscula
+        public static bool ValidarFormatoSenha(string? senha)
+        {
+            if (string.IsNullOrWhiteSpace(senha)) return true;
+            return senha.Length < 6 || !senha.Any(char.IsUpper);
+        }
         [GeneratedRegex(@"\s+")]
-        public static partial Regex EspacosRegex();
+        private static partial Regex EspacosRegex();
     }
 }

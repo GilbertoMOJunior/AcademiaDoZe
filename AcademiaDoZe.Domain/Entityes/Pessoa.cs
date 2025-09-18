@@ -4,6 +4,17 @@ namespace AcademiaDoZe.Domain
 {
     public abstract class Pessoa : Entity
     {
+        public string Cpf { get; }
+        public string Nome { get; set; }
+        public DateOnly DataNascimento { get; set; }
+        public string? Email { get; set; }
+        public string Telefone { get; set; }
+        public string Senha { get; set; }
+        public Arquivo? Foto { get; set; }
+        public Logradouro Logradouro { get; set; }
+        public string Numero { get; set; }
+        public string? Complemento { get; set; }
+
         public Pessoa(string cpf, string nome, DateOnly dataNascimento, string? email,
             string telefone, string senha, Arquivo? foto, Logradouro logradouro,
             string numero, string? complemento)
@@ -34,17 +45,6 @@ namespace AcademiaDoZe.Domain
             Numero = numero;
             Complemento = complemento;
         }
-
-        public string Cpf { get; }
-        public string Nome { get; set; }
-        public DateOnly DataNascimento { get; set; }
-        public string? Email { get; set; }
-        public string Telefone { get; set; }
-        public string Senha { get; set; }
-        public Arquivo? Foto { get; set; }
-        public Logradouro Logradouro { get; set; }
-        public string Numero { get; set; }
-        public string? Complemento { get; set; }
 
         public virtual int Idade()
         {

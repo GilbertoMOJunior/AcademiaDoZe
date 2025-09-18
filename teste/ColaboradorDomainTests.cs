@@ -15,7 +15,7 @@ namespace AcademiaDoZe.Domain.Tests
 
             var colaborador = Colaborador.Criar(new DateOnly(2020, 1, 1), ETipoColaborador.Instrutor, EVinculoColaborador.CLT,
                                                 "12345678901", "Maria", new DateOnly(1990, 5, 20),
-                                                "maria@email.com", "48988888888", "senha123",
+                                                "maria@email.com", "48988888888", "Senha123",
                                                 fotoFake, logradouro, "50", "Sala 2");
 
             Assert.NotNull(colaborador);

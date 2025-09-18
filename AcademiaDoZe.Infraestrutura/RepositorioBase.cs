@@ -19,8 +19,8 @@ namespace AcademiaDoZe.Infraestrutura
             _databaseType = databaseType;
         }
         // com base no nome da entidade, ajusta o nome da tabela e o nome da coluna id para o padrão do banco de dados
-        protected virtual string TableName => $"tb_{typeof(TEntity).Name.ToLower()}";
-        protected virtual string IdTableName => $"id_{typeof(TEntity).Name.ToLower()}";
+        protected virtual string TableName => $"dbo.{typeof(TEntity).Name}";
+        protected virtual string IdTableName => $"Id";
         protected virtual async Task<DbConnection> GetOpenConnectionAsync()
         {
             try
