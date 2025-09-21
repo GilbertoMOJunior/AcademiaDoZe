@@ -70,4 +70,28 @@
 	  <ProjectReference Include="..\AcademiDoZe.Application\AcademiDoZe.Application.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Views\DashboardListPage.xaml.cs">
+	    <DependentUpon>DashboardListPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\LogradouroListPage.xaml.cs">
+	    <DependentUpon>LogradouroListPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\LogradouroPage.xaml.cs">
+	    <DependentUpon>LogradouroPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\DashboardListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LogradouroListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LogradouroPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

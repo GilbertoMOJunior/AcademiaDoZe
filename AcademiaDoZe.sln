@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Application.Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Presentation", "1. Presentation", "{D920A055-E88C-40DF-A92E-B9FCA46358D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Presentation", "AcademiaDoZe.Presentation\AcademiaDoZe.Presentation.csproj", "{E43F6F81-C56D-4673-B935-394563EA4C79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Presentation.AppMaui", "AcademiaDoZe.Presentation\AcademiaDoZe.Presentation.AppMaui.csproj", "{E43F6F81-C56D-4673-B935-394563EA4C79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

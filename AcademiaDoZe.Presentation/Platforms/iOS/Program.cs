@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace AcademiaDoZe.Presentation
+namespace AcademiaDoZe.Presentation.AppMaui
 {
     public class Program
     {

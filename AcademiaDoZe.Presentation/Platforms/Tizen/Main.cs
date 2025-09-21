@@ -2,7 +2,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
 
-namespace AcademiaDoZe.Presentation
+namespace AcademiaDoZe.Presentation.Maui
 {
     internal class Program : MauiApplication
     {

@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace AcademiaDoZe.Presentation
+namespace AcademiaDoZe.Presentation.AppMaui
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

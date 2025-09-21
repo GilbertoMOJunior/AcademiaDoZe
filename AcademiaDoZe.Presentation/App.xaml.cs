@@ -1,4 +1,8 @@
-﻿namespace AcademiaDoZe.Presentation
+﻿using AcademiaDoZe.Presentation.AppMaui;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+
+namespace AcademiaDoZe.Presentation
 {
     public partial class App : Microsoft.Maui.Controls.Application
     {
