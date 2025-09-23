@@ -109,14 +109,15 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 var aluno = await alunoRepository.ObterPorId(alunoId) ?? throw new InvalidOperationException($"Aluno com ID {alunoId} não encontrado.");
                 // Cria o objeto Matricula usando o método de fábrica
                 var matricula = Matricula.Criar(
+                    id: Convert.ToInt32(reader["id_matricula"]),
                     aluno: aluno,
                     plano: (EMatriculaPlano)Convert.ToInt32(reader["plano"]),
                     dataInicio: DateOnly.FromDateTime(Convert.ToDateTime(reader["data_inicio"])),
                     dataFim: DateOnly.FromDateTime(Convert.ToDateTime(reader["data_fim"])),
                     objetivo: reader["objetivo"].ToString(),
-                    restricoes: (EMatriculaRestricoes)Convert.ToInt32(reader["restricoes_medicas"]),
+                    restricoes: (EMatriculaRestricoes)Convert.ToInt32(reader["restricao_medica"]),
                     laudo: reader["laudo_medico"] is DBNull ? null : Arquivo.Criar((byte[])reader["laudo_medico"], ".jpg"),
-                    observacoes: reader["observacoes_restricoes"]?.ToString() ?? string.Empty
+                    observacoes: reader["obs_restricao"]?.ToString() ?? string.Empty
                 );
                 // Define o ID usando reflection
                 var idProperty = typeof(Entity).GetProperty("Id");

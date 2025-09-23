@@ -15,9 +15,9 @@ namespace AcademiaDoZe.Domain
         public string Numero { get; set; }
         public string? Complemento { get; set; }
 
-        public Pessoa(string cpf, string nome, DateOnly dataNascimento, string? email,
+        public Pessoa(int id, string cpf, string nome, DateOnly dataNascimento, string? email,
             string telefone, string senha, Arquivo? foto, Logradouro logradouro,
-            string numero, string? complemento)
+            string numero, string? complemento) : base(id)
         {
             if (string.IsNullOrWhiteSpace(cpf))
                 throw new DomainException("CPF não pode ser vazio.");

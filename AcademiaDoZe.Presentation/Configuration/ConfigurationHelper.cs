@@ -9,10 +9,10 @@ namespace AcademiaDoZe.Presentation.Configuration
         {
             // dados conexão
 
-            const string dbServer = "172.24.32.1";
+            const string dbServer = "localhost\\SQLEXPRESS";
             const string dbDatabase = "db_academia_do_ze";
             const string dbUser = "sa";
-            const string dbPassword = "abcBolinhas12345";
+            const string dbPassword = "V@$c0_1234";
             const string dbComplemento = "TrustServerCertificate=True;Encrypt=True;";
             // se for necessário indicar a porta, incluir junto em dbComplemento
 

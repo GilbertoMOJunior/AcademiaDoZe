@@ -22,23 +22,25 @@ public static class LogradouroMappings
     public static Logradouro ToEntity(this LogradouroDTO logradouroDto)
     {
         return Logradouro.Criar(
+        logradouroDto.Id,
         logradouroDto.Cep,
         logradouroDto.Nome,
-        logradouroDto.Bairro,
-        logradouroDto.Cidade,
+        logradouroDto.Pais,
         logradouroDto.Estado,
-        logradouroDto.Pais);
+        logradouroDto.Cidade,
+        logradouroDto.Bairro);
     }
     public static Logradouro UpdateFromDto(this Logradouro logradouro, LogradouroDTO logradouroDto)
     {
         // Cria uma nova instância do Logradouro com os valores atualizados
 
         return Logradouro.Criar(
+        logradouroDto.Id,
         logradouro.Cep, // Mantém o CEP original
         logradouroDto.Nome ?? logradouro.Nome,
-        logradouroDto.Bairro ?? logradouro.Bairro,
-        logradouroDto.Cidade ?? logradouro.Cidade,
+        logradouroDto.Pais ?? logradouro.Pais,
         logradouroDto.Estado ?? logradouro.Estado,
-        logradouroDto.Pais ?? logradouro.Pais);
+        logradouroDto.Cidade ?? logradouro.Cidade,
+        logradouroDto.Bairro ?? logradouro.Bairro);
     }
 }

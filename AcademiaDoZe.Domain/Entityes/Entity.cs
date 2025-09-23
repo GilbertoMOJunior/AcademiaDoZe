@@ -1,11 +1,14 @@
-﻿namespace AcademiaDoZe.Domain
+﻿using System.ComponentModel;
+
+namespace AcademiaDoZe.Domain
 {
     public abstract class Entity
     {
         public int Id { get; private set; }
 
-        protected Entity()
+        protected Entity(int id)
         {
+            Id = id;
         }
     }
 }

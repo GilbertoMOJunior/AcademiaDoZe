@@ -5,14 +5,14 @@ namespace AcademiaDoZe.Domain
 {
     public sealed class Logradouro : Entity
     {
-        public string Nome { get; set; }
         public string Cep { get; set; }
+        public string Nome { get; set; }
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
         public string Pais { get; set; }
 
-        private Logradouro(string nomeLogradouro, string cEP, string pais, string estado, string cidade, string bairro)
+        private Logradouro(int id, string nomeLogradouro, string cEP, string pais, string estado, string cidade, string bairro) : base(id)
         {
             Nome = nomeLogradouro;
             Cep = cEP;
@@ -22,7 +22,7 @@ namespace AcademiaDoZe.Domain
             Estado = estado;
         }
 
-        public static Logradouro Criar(string nome, string cep, string pais, string estado, string cidade, string bairro)
+        public static Logradouro Criar(int id, string cep, string nome, string pais, string estado, string cidade, string bairro)
         {
             cep = NormalizadoService.LimparEDigitos(cep);
             nome = NormalizadoService.LimparEspacos(nome);
@@ -41,12 +41,14 @@ namespace AcademiaDoZe.Domain
                 throw new DomainException("País não pode ser vazio.");
             if (string.IsNullOrWhiteSpace(estado))
                 throw new DomainException("Estado não pode ser vazio.");
+            if (estado.Length > 2)
+                throw new DomainException("Estado não pode ter mais de 2 digitos.");
             if (string.IsNullOrWhiteSpace(cidade))
                 throw new DomainException("Cidade não pode ser vazia.");
             if (string.IsNullOrWhiteSpace(bairro))
                 throw new DomainException("Bairro não pode ser vazio.");
 
-            return new Logradouro(nome, cep, pais, estado, cidade, bairro);
+            return new Logradouro(id, nome, cep, pais, estado, cidade, bairro);
         }
     }
 }

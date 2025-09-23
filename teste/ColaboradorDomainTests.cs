@@ -9,7 +9,7 @@ namespace AcademiaDoZe.Domain.Tests
         [Fact]
         public void CriarColaborador_Valido_NaoDeveLancarExcecao()
         {
-            var logradouro = Logradouro.Criar("Rua A", "12345678", "Brasil", "SP", "SP", "Centro");
+            var logradouro = Logradouro.Criar(1, "Rua A", "12345678", "Brasil", "SP", "SP", "Centro");
 
             var fotoFake = Arquivo.Criar(new byte[] { 1, 2, 3, 4 }, ".jpg");
 
@@ -24,7 +24,7 @@ namespace AcademiaDoZe.Domain.Tests
         [Fact]
         public void CriarColaborador_DataAdmissaoFutura_DeveLancarExcecao()
         {
-            var logradouro = Logradouro.Criar("Rua A", "12345678", "Brasil", "SP", "SP", "Centro");
+            var logradouro = Logradouro.Criar(1, "Rua A", "12345678", "Brasil", "SP", "SP", "Centro");
             
             var fotoFake = Arquivo.Criar(new byte[] { 1, 2, 3, 4 }, ".jpg");
 

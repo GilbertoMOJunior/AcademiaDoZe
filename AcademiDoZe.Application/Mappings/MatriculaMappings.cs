@@ -24,6 +24,7 @@ public static class MatriculaMappings
     public static Matricula ToEntity(this MatriculaDTO matriculaDto)
     {
         return Matricula.Criar(
+        matriculaDto.Id,
         matriculaDto.AlunoMatricula.ToEntityMatricula(), // Mapeia aluno do DTO para a entidade, resolvendo o caso da senha null
         matriculaDto.Plano.ToDomain(),
         matriculaDto.DataInicio,
@@ -37,6 +38,7 @@ public static class MatriculaMappings
     public static Matricula UpdateFromDto(this Matricula matricula, MatriculaDTO matriculaDto)
     {
         return Matricula.Criar(
+        matriculaDto.Id,
         matriculaDto.AlunoMatricula.ToEntityMatricula() ?? matricula.Aluno,
         matriculaDto.Plano != default ? matriculaDto.Plano.ToDomain() : matricula.Plano,
         matriculaDto.DataInicio != default ? matriculaDto.DataInicio : matricula.DataInicio,

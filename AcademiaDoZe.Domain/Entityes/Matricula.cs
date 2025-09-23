@@ -16,7 +16,7 @@ namespace AcademiaDoZe.Domain
         public Arquivo? LaudoMedico { get; set; }
 
         public bool Ativo => DataFim >= DateOnly.FromDateTime(DateTime.Today);
-        private Matricula(Aluno aluno, EMatriculaPlano plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, EMatriculaRestricoes? restricoes, string observacoes, Arquivo? laudo)
+        private Matricula(int id, Aluno aluno, EMatriculaPlano plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, EMatriculaRestricoes? restricoes, string observacoes, Arquivo? laudo) : base(id)
         {
             
             Aluno = aluno;
@@ -29,7 +29,7 @@ namespace AcademiaDoZe.Domain
             LaudoMedico = laudo;
         }
 
-        public static Matricula Criar(Aluno aluno, EMatriculaPlano plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, EMatriculaRestricoes? restricoes, string observacoes, Arquivo? laudo)
+        public static Matricula Criar(int id, Aluno aluno, EMatriculaPlano plano, DateOnly dataInicio, DateOnly dataFim, string objetivo, EMatriculaRestricoes? restricoes, string observacoes, Arquivo? laudo)
         {
             if (aluno is null)
                 throw new DomainException(nameof(aluno));
@@ -52,7 +52,7 @@ namespace AcademiaDoZe.Domain
             if ((restricoes.HasValue && restricoes.Value != EMatriculaRestricoes.Nenhuma) && laudo is null)
                 throw new DomainException("Aluno com restrições deve possuir um laudo médico.");
 
-            return new Matricula(aluno, plano, dataInicio, dataFim, objetivo, restricoes, observacoes,laudo);
+            return new Matricula(id, aluno, plano, dataInicio, dataFim, objetivo, restricoes, observacoes,laudo);
         }
     }
 }

@@ -23,11 +23,11 @@ public static class ApplicationDependencyInjection
         // AddTransient: cria uma nova instância do serviço toda vez que ele é solicitado.
         // Registra as fábricas Func<IRepo> para criar instâncias sob demanda nos services
         // Instancias dos repositórios são criadas conforme necessário
-        //services.AddTransient(provider =>
-        //{
-        //    var config = provider.GetRequiredService<RepositoryConfig>();
-        //    return (Func<IColaboradorRepository>)(() => new LogradouroRepository(config.ConnectionString, (DatabaseType)config.DatabaseType));
-        //});
+        services.AddTransient(provider =>
+        {
+            var config = provider.GetRequiredService<RepositoryConfig>();
+            return (Func<ILogradouroRepository>)(() => new LogradouroRepository(config.ConnectionString, (DatabaseType)config.DatabaseType));
+        });
         services.AddTransient(provider =>
         {
             var config = provider.GetRequiredService<RepositoryConfig>();

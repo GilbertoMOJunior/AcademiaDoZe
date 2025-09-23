@@ -1,3 +1,4 @@
+using AcademiaDoZe.Application.DTOs;
 using AcademiaDoZe.Presentation.AppMaui.ViewModels;
 using Microsoft.Maui.Controls;
 

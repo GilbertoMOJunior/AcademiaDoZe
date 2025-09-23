@@ -13,7 +13,7 @@ namespace AcademiaDoZe.Domain
         private Colaborador(int id, DateOnly dataAdmissao, EColaboradorTipo tipoColaborador, EColaboradorVinculo vinculo,
             string cpf, string nome, DateOnly dataNascimento, string? email,
             string telefone, string senha, Arquivo? foto, Logradouro logradouro,
-            string numero, string complemento) : base(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento)
+            string numero, string complemento) : base(id, cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento)
         {
 
             DataAdmissao = dataAdmissao;

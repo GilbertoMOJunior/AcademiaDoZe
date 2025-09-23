@@ -7,7 +7,7 @@ namespace AcademiaDoZe.Domain
     {
         private Aluno(int id, string cpf, string nome, DateOnly dataNascimento, string? email, string telefone,
             string senha, Arquivo? foto, Logradouro logradouro, string numero, string? complemento)
-            : base(cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento)
+            : base(id, cpf, nome, dataNascimento, email, telefone, senha, foto, logradouro, numero, complemento)
         {
 
         }
