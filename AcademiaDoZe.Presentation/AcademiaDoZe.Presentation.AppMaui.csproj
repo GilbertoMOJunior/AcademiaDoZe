@@ -26,6 +26,8 @@
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.academiadoze.presentation</ApplicationId>
 
+		<ApplicationTitle>GYM do Zé</ApplicationTitle>
+
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
@@ -77,6 +79,9 @@
 	  <Compile Update="Views\LogradouroListPage.xaml.cs">
 	    <DependentUpon>LogradouroListPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\ConfigPage.xaml.cs">
+	    <DependentUpon>ConfigPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\LogradouroPage.xaml.cs">
 	    <DependentUpon>LogradouroPage.xaml</DependentUpon>
 	  </Compile>
@@ -87,6 +92,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LogradouroListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ConfigPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LogradouroPage.xaml">
