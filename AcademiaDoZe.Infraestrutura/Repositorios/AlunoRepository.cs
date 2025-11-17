@@ -20,7 +20,7 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 await using var connection = await GetOpenConnectionAsync();
                 string query = _databaseType == DatabaseType.SqlServer
                 ? $"INSERT INTO {TableName} (cpf, telefone, nome, nascimento, email, logradouro_id, numero, complemento, senha, foto) "
-                + "OUTPUT INSERTED.id_colaborador "
+                + "OUTPUT INSERTED.id_aluno "
                 + "VALUES (@Cpf, @Telefone, @Nome, @Nascimento, @Email, @LogradouroId, @Numero, @Complemento, @Senha, @Foto);"
                 : $"INSERT INTO {TableName} (cpf, telefone, nome, nascimento, email, logradouro_id, numero, complemento, senha, foto) "
                 + "VALUES (@Cpf, @Telefone, @Nome, @Nascimento, @Email, @LogradouroId, @Numero, @Complemento, @Senha, @Foto); "
@@ -63,8 +63,8 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 + "numero = @Numero, "
                 + "complemento = @Complemento, "
                 + "senha = @Senha, "
-                + "foto = @Foto, "
-                + "WHERE id_colaborador = @Id";
+                + "foto = @Foto "
+                + "WHERE id_aluno = @Id";
                 await using var command = DbProvider.CreateCommand(query, connection);
                 command.Parameters.Add(DbProvider.CreateParameter("@Id", entity.Id, DbType.Int32, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Cpf", entity.Cpf, DbType.String, _databaseType));
@@ -90,19 +90,63 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
             }
         }
 
-        public Task<bool> CpfJaExiste(string cpf, int? id = null)
+        public async Task<bool> CpfJaExiste(string cpf, int? id = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await using var connection = await GetOpenConnectionAsync();
+                string query = $"SELECT COUNT(1) FROM {TableName} WHERE cpf = @Cpf";
+                if (id.HasValue)
+                {
+                    query += " AND id_aluno != @Id";
+                }
+                await using var command = DbProvider.CreateCommand(query, connection);
+                command.Parameters.Add(DbProvider.CreateParameter("@Cpf", cpf, DbType.String, _databaseType));
+                if (id.HasValue)
+                {
+                    command.Parameters.Add(DbProvider.CreateParameter("@Id", id.Value, DbType.Int32, _databaseType));
+                }
+                var count = await command.ExecuteScalarAsync();
+                return Convert.ToInt32(count) > 0;
+            }
+            catch (DbException ex)
+            {
+                throw new InvalidOperationException($"Erro ao verificar se o CPF {cpf} já existe: {ex.Message}", ex);
+            }
         }
 
-        public Task<Aluno?> ObterPorCpf(string cpf)
+        public async Task<Aluno?> ObterPorCpf(string cpf)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await using var connection = await GetOpenConnectionAsync();
+                string query = $"SELECT * FROM {TableName} WHERE cpf = @Cpf";
+                await using var command = DbProvider.CreateCommand(query, connection);
+                command.Parameters.Add(DbProvider.CreateParameter("@Cpf", cpf, DbType.String, _databaseType));
+                using var reader = await command.ExecuteReaderAsync();
+                return await reader.ReadAsync() ? await MapAsync(reader) : null;
+            }
+            catch (DbException ex) { throw new InvalidOperationException($"Erro ao obter aluno pelo CPF {cpf}: {ex.Message}", ex); }
         }
 
-        public Task<bool> TrocarSenha(int id, string novaSenha)
+        public async Task<bool> TrocarSenha(int id, string novaSenha)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await using var connection = await GetOpenConnectionAsync();
+                string query = $"UPDATE {TableName} SET senha = @NovaSenha WHERE id_aluno = @Id";
+
+                await using var command = DbProvider.CreateCommand(query, connection);
+                command.Parameters.Add(DbProvider.CreateParameter("?@NovaSenha", novaSenha, DbType.String, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("?@Id", id, DbType.Int32, _databaseType));
+
+                int linhasAfetadas = await command.ExecuteNonQueryAsync();
+                return linhasAfetadas > 0;
+            }
+            catch (DbException ex)
+            {
+                throw new InvalidOperationException($"Erro ao trocar senha do aluno ID {id}: {ex.Message}", ex);
+            }
         }
 
         protected override async Task<Aluno> MapAsync(DbDataReader reader)
@@ -113,7 +157,7 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
                 var logradouroId = Convert.ToInt32(reader["logradouro_id"]);
                 var logradouroRepository = new LogradouroRepository(_connectionString, _databaseType);
                 var logradouro = await logradouroRepository.ObterPorId(logradouroId) ?? throw new InvalidOperationException($"Logradouro com ID {logradouroId} não encontrado.");
-                // Cria o objeto Colaborador usando o método de fábrica
+                // Cria o objeto aluno usando o método de fábrica
                 var entity = Aluno.Criar(
                 id: Convert.ToInt32(reader["id_aluno"]),
                 cpf: reader["cpf"].ToString()!,

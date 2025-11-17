@@ -1,8 +1,5 @@
 ﻿using AcademiaDoZe.Application.Interfaces;
-using AcademiaDoZe.Application.Services;
-using AcademiaDoZe.Application_.Services;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls;
 
 namespace AcademiaDoZe.Presentation.AppMaui.ViewModels
 {

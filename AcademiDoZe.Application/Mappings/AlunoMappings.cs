@@ -25,9 +25,17 @@ public static class AlunoMappings
     public static Aluno ToEntity(this AlunoDTO alunoDto)
     {
         return Aluno.Criar(
-        alunoDto.Id, alunoDto.Nome, alunoDto.Cpf, alunoDto.DataNascimento, alunoDto.Telefone, alunoDto.Email!,
+        id:alunoDto.Id,
+        cpf:alunoDto.Cpf,
+        nome:alunoDto.Nome,
+        dataNascimento:alunoDto.DataNascimento, 
+        email:alunoDto.Email!,
+        telefone:alunoDto.Telefone, 
         endereco:alunoDto.Endereco.ToEntity(), // Mapeia o logradouro do DTO para a entidade
-        numero:alunoDto.Numero, complemento:alunoDto.Complemento!, senha:alunoDto.Senha!, foto:(alunoDto.Foto?.Conteudo != null) ? Arquivo.Criar(alunoDto.Foto.Conteudo, ".jpg") : null!
+        numero:alunoDto.Numero, 
+        complemento:alunoDto.Complemento!,
+        senha:alunoDto.Senha!, 
+        foto:(alunoDto.Foto?.Conteudo != null) ? Arquivo.Criar(alunoDto.Foto.Conteudo, ".jpg") : null!
         );
     }
     /*
@@ -41,8 +49,8 @@ public static class AlunoMappings
     {
         return Aluno.Criar(
         id:alunoDto.Id, 
-        nome:alunoDto.Nome,
         cpf:alunoDto.Cpf,
+        nome:alunoDto.Nome,
         dataNascimento:alunoDto.DataNascimento,
         telefone:alunoDto.Telefone,
         email:alunoDto.Email!,
