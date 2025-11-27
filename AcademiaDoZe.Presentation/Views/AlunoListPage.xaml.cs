@@ -22,28 +22,28 @@ public partial class AlunoListPage : ContentPage
     {
         try
         {
-            if (sender is Button button && button.BindingContext is AlunoDTO colaborador && BindingContext is AlunoListViewModel viewModel)
+            if (sender is Button button && button.BindingContext is AlunoDTO aluno && BindingContext is AlunoListViewModel viewModel)
             {
-                await viewModel.EditAlunoCommand.ExecuteAsync(colaborador);
+                await viewModel.EditAlunoCommand.ExecuteAsync(aluno);
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Erro", $"Erro ao editar colaborador: {ex.Message}", "OK");
+            await DisplayAlert("Erro", $"Erro ao editar aluno: {ex.Message}", "OK");
         }
     }
     private async void OnDeleteButtonClicked(object sender, EventArgs e)
     {
         try
         {
-            if (sender is Button button && button.BindingContext is AlunoDTO colaborador && BindingContext is AlunoListViewModel viewModel)
+            if (sender is Button button && button.BindingContext is AlunoDTO aluno && BindingContext is AlunoListViewModel viewModel)
             {
-                await viewModel.DeleteAlunoCommand.ExecuteAsync(colaborador);
+                await viewModel.DeleteAlunoCommand.ExecuteAsync(aluno);
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Erro", $"Erro ao excluir colaborador: {ex.Message}", "OK");
+            await DisplayAlert("Erro", $"Erro ao excluir aluno: {ex.Message}", "OK");
         }
     }
 }

@@ -1,12 +1,7 @@
 ﻿using AcademiaDoZe.Application.DTOs;
 using AcademiaDoZe.Application.Interfaces;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AcademiaDoZe.Presentation.AppMaui.ViewModels
 {
@@ -89,7 +84,6 @@ namespace AcademiaDoZe.Presentation.AppMaui.ViewModels
 				// Limpa a lista atual
 
 				await MainThread.InvokeOnMainThreadAsync(() =>
-
 				{
 					Alunos.Clear();
 				});

@@ -1,4 +1,6 @@
 ﻿//Gilberto Mota de Oliveira Junior
+using Microsoft.Identity.Client;
+
 namespace AcademiaDoZe.Application.DTOs;
 
 public class AlunoDTO

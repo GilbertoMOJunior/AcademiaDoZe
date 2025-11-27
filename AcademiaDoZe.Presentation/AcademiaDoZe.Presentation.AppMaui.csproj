@@ -73,6 +73,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\MatriculaPage.xaml.cs">
+	    <DependentUpon>MatriculaPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\MatriculaListPage.xaml.cs">
+	    <DependentUpon>MatriculaListPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\AlunoPage.xaml.cs">
 	    <DependentUpon>AlunoPage.xaml</DependentUpon>
 	  </Compile>
@@ -100,7 +106,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\MatriculaListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AlunoListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MatriculaPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AlunoPage.xaml">

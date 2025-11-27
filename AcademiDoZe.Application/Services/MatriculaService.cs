@@ -18,12 +18,11 @@ public class MatriculaService : IMatriculaService
     {
         // Verifica se já existe uma matricula com o mesmo Id
 
-        var idExistente = await _repoFactory().ObterPorId(matriculaDto.Id);
-        if (idExistente != null)
-
-        {
-            throw new InvalidOperationException($"Matricula com ID {idExistente.Id}, já cadastrado com o Id {idExistente.Id}.");
-        }
+        //var idExistente = await _repoFactory().ObterPorId(matriculaDto.Id);
+        //if (idExistente != null)
+        //{
+        //    throw new InvalidOperationException($"Matricula com ID {idExistente.Id}, já cadastrado com o Id {idExistente.Id}.");
+        //}
         // Cria a entidade de domínio a partir do DTO
         var matricula = matriculaDto.ToEntity();
         // Salva no repositório

@@ -98,8 +98,8 @@ namespace AcademiaDoZe.Presentation.AppMaui.ViewModels
 			try
 			{
 				IsBusy = true;
-				// Verifica se o CEP existe antes de continuar
 
+				// Verifica se o CEP existe antes de continuar
 				var logradouroData = await _logradouroService.ObterPorCepAsync(Aluno.Endereco.Cep);
 				if (logradouroData == null)
 

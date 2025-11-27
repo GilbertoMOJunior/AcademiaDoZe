@@ -1,5 +1,4 @@
 ﻿using AcademiaDoZe.Presentation.AppMaui.Views;
-using Microsoft.Maui.Controls;
 
 namespace AcademiaDoZe.Presentation.AppMaui
 {
@@ -15,11 +14,11 @@ namespace AcademiaDoZe.Presentation.AppMaui
 
         // como páginas de detalhe, edição ou cadastro.
         private static void RegisterRoutes()
-
         {
             Routing.RegisterRoute("logradouro", typeof(LogradouroPage));
             Routing.RegisterRoute("colaborador", typeof(ColaboradorPage));
             Routing.RegisterRoute("aluno", typeof(AlunoPage));
+            Routing.RegisterRoute("matricula", typeof(MatriculaPage));
         }
     }
 }

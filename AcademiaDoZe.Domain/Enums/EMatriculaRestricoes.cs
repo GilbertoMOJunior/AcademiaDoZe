@@ -5,20 +5,20 @@ namespace AcademiaDoZe.Domain.Enums
     [Flags]
     public enum EMatriculaRestricoes
     {
-        [Display(Name = "Nenhuma restrição")]
+        [Display(Name = "Nenhuma Restrição")]
         Nenhuma = 0,
-
-        [Display(Name = "Cardíaca")]
-        Cardiaca = 1,
-
-        [Display(Name = "Respiratória")]
-        Respiratoria = 2,
-
-        [Display(Name = "Lesão Articular")]
-        LesaoArticular = 4,
-
-        [Display(Name = "Outros")]
-        Outros = 8
+        [Display(Name = "Diabetes")]
+        Diabetes = 1,
+        [Display(Name = "Pressão Alta")]
+        PressaoAlta = 2,
+        [Display(Name = "Labirintite")]
+        Labirintite = 4,
+        [Display(Name = "Alergias")]
+        Alergias = 8,
+        [Display(Name = "Problemas Respiratórios")]
+        ProblemasRespiratorios = 16,
+        [Display(Name = "Remédio Contínuo")]
+        RemedioContinuo = 32
     }
 }
 

@@ -34,5 +34,11 @@ Title="Academia do Zé">
             <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe80c;" />
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate views:AlunoListPage}" Route="alunos" />
-    </FlyoutItem> 
+    </FlyoutItem>
+    <FlyoutItem Title="Matriculas">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe174;" />
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate views:MatriculaListPage}" Route="matriculas" />
+    </FlyoutItem>
 </Shell>

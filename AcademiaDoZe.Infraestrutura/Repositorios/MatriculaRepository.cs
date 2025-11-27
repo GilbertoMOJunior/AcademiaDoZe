@@ -20,21 +20,21 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
             {
                 await using var connection = await GetOpenConnectionAsync();
                 string query = _databaseType == DatabaseType.SqlServer
-                ? $"INSERT INTO {TableName} (aluno, plano, data_inicio, data_fim, objetivo, restricoes_medicas, laudo_medico, observacoes_restricoes) "
+                ? $"INSERT INTO {TableName} (aluno_id, plano, data_inicio, data_fim, objetivo, restricao_medica, laudo_medico, obs_restricao) "
                 + "OUTPUT INSERTED.id_matricula "
-                + "VALUES (@Aluno, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes);"
-                : $"INSERT INTO {TableName} (aluno, plano, data_inicio, data_fim, objetivo, restricoes_medicas, laudo_medico, observacoes_restricoes) "
-                + "VALUES (@Aluno, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes); "
+                + "VALUES (@Aluno_id, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricao_medica, @Laudo_medico, @Obs_restricao);"
+                : $"INSERT INTO {TableName} (aluno_id, plano, data_inicio, data_fim, objetivo, restricao_medica, laudo_medico, obs_restricao) "
+                + "VALUES (@Aluno_id, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricao_medica, @Laudo_medico, @Obs_restricao); "
                 + "SELECT LAST_INSERT_ID();";
                 await using var command = DbProvider.CreateCommand(query, connection);
-                command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.Aluno.Id, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Plano", entity.Plano, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio, DbType.String, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Aluno_id", entity.Aluno.Id, DbType.String, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Plano", (int)entity.Plano, DbType.Int32, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio, DbType.Date, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim, DbType.Date, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Objetivo", entity.Objetivo, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Restricoes_medicas", entity.Restricoes.Value, DbType.Int32, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", entity.LaudoMedico, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Observacoes_restricoes", (object)entity.ObservacoesRestricoes ?? DBNull.Value, DbType.String, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Restricao_medica", entity.Restricoes.Value, DbType.Int32, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", (object)entity.LaudoMedico?.Conteudo ?? DBNull.Value, DbType.Binary, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Obs_restricao", entity.ObservacoesRestricoes, DbType.String, _databaseType));
                 var id = await command.ExecuteScalarAsync();
                 if (id != null && id != DBNull.Value)
                 {
@@ -53,24 +53,25 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
             {
                 await using var connection = await GetOpenConnectionAsync();
                 string query = $"UPDATE {TableName} "
-                + "SET aluno = @Aluno, "
+                + "SET aluno_id = @Aluno, "
                 + "plano = @Plano, "
                 + "data_inicio = @Data_inicio, "
                 + "data_fim = @Data_fim, "
                 + "objetivo = @Objetivo, "
-                + "restricoes_medicas = @Restricoes_medicas, "
+                + "restricao_medica = @Restricao_medica, "
                 + "laudo_medico = @Laudo_medico, "
-                + "observacoes_restricoes = @Observacoes_restricoes "
-                + "WHERE id_matrcula = @Id";
+                + "obs_restricao = @Obs_restricao "
+                + "WHERE id_matricula = @Id";
                 await using var command = DbProvider.CreateCommand(query, connection);
+                command.Parameters.Add(DbProvider.CreateParameter("@Id", entity.Id, DbType.Int32, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.Aluno.Id, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Plano", entity.Plano, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio, DbType.String, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Plano", entity.Plano, DbType.Int32, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio, DbType.Date, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim, DbType.Date, _databaseType));
                 command.Parameters.Add(DbProvider.CreateParameter("@Objetivo", entity.Objetivo, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Restricoes_medicas", entity.Restricoes, DbType.Int32, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", entity.LaudoMedico, DbType.String, _databaseType));
-                command.Parameters.Add(DbProvider.CreateParameter("@Observacoes_restricoes", (object)entity.ObservacoesRestricoes ?? DBNull.Value, DbType.String, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Restricao_medica", entity.Restricoes.Value, DbType.Int32, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", (object)entity.LaudoMedico?.Conteudo ?? DBNull.Value, DbType.Binary, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Obs_restricao", entity.ObservacoesRestricoes, DbType.String, _databaseType));
                 int rowsAffected = await command.ExecuteNonQueryAsync();
                 if (rowsAffected == 0)
                 {
@@ -84,20 +85,94 @@ namespace AcademiaDoZe.Infraestrutura.Repositorios
             }
         }
 
-        public Task<IEnumerable<Matricula>> ObterAtivas(int alunoId = 0)
+        public async Task<IEnumerable<Matricula>> ObterAtivas(int alunoId = 0)
         {
-            throw new NotImplementedException();
+            var matriculas = new List<Matricula>();
+
+            try
+            {
+                await using var connection = await GetOpenConnectionAsync();
+
+                string query =
+                    $"SELECT * FROM {TableName} " +
+                    "WHERE data_fim >= @Hoje " +
+                    (alunoId > 0 ? "AND aluno_id = @AlunoId " : "");
+
+                await using var command = DbProvider.CreateCommand(query, connection);
+                command.Parameters.Add(DbProvider.CreateParameter("@Hoje", DateTime.Today, DbType.Date, _databaseType));
+
+                if (alunoId > 0)
+                    command.Parameters.Add(DbProvider.CreateParameter("@AlunoId", alunoId, DbType.Int32, _databaseType));
+
+                await using var reader = await command.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                    matriculas.Add(await MapAsync(reader));
+
+                return matriculas;
+            }
+            catch (DbException ex)
+            {
+                throw new InvalidOperationException($"Erro ao obter matrículas ativas: {ex.Message}", ex);
+            }
         }
 
-        public Task<IEnumerable<Matricula>> ObterPorAluno(int alunoId)
+        public async Task<IEnumerable<Matricula>> ObterPorAluno(int alunoId)
         {
-            throw new NotImplementedException();
+            var matriculas = new List<Matricula>();
+
+            try
+            {
+                await using var connection = await GetOpenConnectionAsync();
+
+                string query =
+                    $"SELECT * FROM {TableName} " +
+                    "WHERE aluno_id = @AlunoId";
+
+                await using var command = DbProvider.CreateCommand(query, connection);
+                command.Parameters.Add(DbProvider.CreateParameter("@AlunoId", alunoId, DbType.Int32, _databaseType));
+
+                await using var reader = await command.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                    matriculas.Add(await MapAsync(reader));
+
+                return matriculas;
+            }
+            catch (DbException ex)
+            {
+                throw new InvalidOperationException($"Erro ao obter matrículas por aluno (ID: {alunoId}): {ex.Message}", ex);
+            }
         }
 
-        public Task<IEnumerable<Matricula>> ObterVencendoEmDias(int dias)
+        public async Task<IEnumerable<Matricula>> ObterVencendoEmDias(int dias)
         {
-            throw new NotImplementedException();
+            var matriculas = new List<Matricula>();
+
+            try
+            {
+                await using var connection = await GetOpenConnectionAsync();
+
+                DateTime limite = DateTime.Today.AddDays(dias);
+
+                string query =
+                    $"SELECT * FROM {TableName} " +
+                    "WHERE data_fim BETWEEN @Hoje AND @Limite";
+
+                await using var command = DbProvider.CreateCommand(query, connection);
+                command.Parameters.Add(DbProvider.CreateParameter("@Hoje", DateTime.Today, DbType.Date, _databaseType));
+                command.Parameters.Add(DbProvider.CreateParameter("@Limite", limite, DbType.Date, _databaseType));
+
+                await using var reader = await command.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                    matriculas.Add(await MapAsync(reader));
+
+                return matriculas;
+            }
+            catch (DbException ex)
+            {
+                throw new InvalidOperationException($"Erro ao obter matrículas vencendo em {dias} dias: {ex.Message}", ex);
+            }
         }
+
 
         protected override async Task<Matricula> MapAsync(DbDataReader reader)
         {
